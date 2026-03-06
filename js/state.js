@@ -14,7 +14,9 @@ export const sites = [
   { id: 'pathfinder',       title: 'Pathfinder',           subtitle: 'Visual Strategy Canvas',             accent: '#4ade80', domain: 'pathfinder.neorgon.com' },
   { id: 'meme-vault',       title: 'Meme Vault',           subtitle: 'Browse and Vote on Memes',           accent: '#f43f5e', domain: 'memes.neorgon.com' },
   { id: 'og-studio',        title: 'OG Studio',            subtitle: 'Social Preview Generator',           accent: '#a3e635', domain: 'ogstudio.neorgon.com' },
-  { id: 'ghost-mode',       title: 'Ghost Mode',           subtitle: 'Idle Schedule Builder',              accent: '#22d3ee', domain: '' },
+  { id: 'vibe-check',       title: 'Vibe Check',           subtitle: 'Behavioral Interview Scorecard',     accent: '#38bdf8', domain: 'interviews.neorgon.com' },
+  { id: 'character-sheet',  title: 'Character Sheet',      subtitle: 'RPG Personality Interview',          accent: '#e879f9', domain: 'charactersheet.neorgon.com' },
+  { id: 'autopilot',        title: 'Autopilot',            subtitle: 'Idle Schedule Builder',              accent: '#22d3ee', domain: 'autopilot.neorgon.com' },
   { id: 'rush-q-cards',     title: 'Rush Q Cards',         subtitle: 'Corporate Strategy Card Game',       accent: '#0080ff', domain: '' },
 ];
 
