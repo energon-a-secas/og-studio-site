@@ -18,6 +18,7 @@ export const sites = [
   { id: 'character-sheet',  title: 'Character Sheet',      subtitle: 'RPG Personality Interview',          accent: '#e879f9', domain: 'charactersheet.neorgon.com' },
   { id: 'autopilot',        title: 'Autopilot',            subtitle: 'Idle Schedule Builder',              accent: '#22d3ee', domain: 'autopilot.neorgon.com' },
   { id: 'rush-q-cards',     title: 'Rush Q Cards',         subtitle: 'Corporate Strategy Card Game',       accent: '#0080ff', domain: '' },
+  { id: 'snippets',          title: 'Snippets',             subtitle: 'Search, Copy, Ship',                 accent: '#10b981', domain: 'snippets.neorgon.com' },
 ];
 
 export const gradientPresets = [
