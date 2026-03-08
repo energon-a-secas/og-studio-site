@@ -1,0 +1,34 @@
+---
+config:
+  theme: base
+  themeVariables:
+    primaryColor: "#0f172a"
+    primaryTextColor: "#e2e8f0"
+    primaryBorderColor: "#0063e5"
+    lineColor: "#38bdf8"
+    secondaryColor: "#1e293b"
+    tertiaryColor: "#1e293b"
+    clusterBkg: "#f0f7ff"
+    clusterBorder: "#bfdbfe"
+    edgeLabelBackground: "#e8f0ff"
+    mainBkg: "#0f172a"
+    nodeBorder: "#0063e5"
+    titleColor: "#1e1b4b"
+    fontFamily: "ui-sans-serif, system-ui, -apple-system, sans-serif"
+    fontSize: "13px"
+---
+
+flowchart TB
+    User([User]) --> HTML["index.html\nApp shell"]
+
+    subgraph App["ES Modules"]
+        HTML --> app["app.js\nEntry point"]
+        app --> render["render.js\nCanvas rendering"]
+        app --> state["state.js\nPattern + project state"]
+        app --> events["events.js\nPattern, density, download controls"]
+        app --> utils["utils.js\nHelpers"]
+    end
+
+    render --> Canvas["Canvas API\n1200x630 image rendering"]
+    Canvas --> Patterns["Patterns\nConstellation / Dot grid / Circuit lines"]
+    events --> PNG["PNG downloads\nIndividual + bulk"]

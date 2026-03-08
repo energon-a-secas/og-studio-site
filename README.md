@@ -45,6 +45,8 @@ OG Studio generates branded 1200x630 social preview (Open Graph) images for all 
 
 ## Architecture
 
+![Architecture](docs/architecture.svg)
+
 Modular ES module app following the standard project layout:
 
 ```
