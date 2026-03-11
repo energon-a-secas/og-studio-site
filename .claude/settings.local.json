@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(chmod +x /Users/lucianoadonisvillarroel/Documents/Projects/Personal/og-studio-site/scripts/deploy-og.sh)",
+      "Bash(node scripts/generate-og.mjs 2>&1)",
+      "Bash(bash /Users/lucianoadonisvillarroel/Documents/Projects/Personal/og-studio-site/scripts/deploy-og.sh 2>&1)",
+      "Bash(make og:*)"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "context7"
+  ]
+}

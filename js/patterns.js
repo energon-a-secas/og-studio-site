@@ -5,15 +5,15 @@ import { mulberry32 } from './utils.js';
 export function drawConstellation(ctx, rng, accent, count) {
   const pts = [];
   for (let i = 0; i < count; i++) {
-    pts.push({ x: rng() * W, y: rng() * H, r: 1 + rng() * 2.5 });
+    pts.push({ x: rng() * W, y: rng() * H, r: 2 + rng() * 4 });
   }
-  ctx.lineWidth = 0.8;
+  ctx.lineWidth = 1.4;
   for (let i = 0; i < pts.length; i++) {
     for (let j = i + 1; j < pts.length; j++) {
       const dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y;
       const dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < 160) {
-        const alpha = Math.round((1 - dist / 160) * 25);
+      if (dist < 220) {
+        const alpha = Math.round((1 - dist / 220) * 55);
         ctx.strokeStyle = accent + alpha.toString(16).padStart(2, '0');
         ctx.beginPath();
         ctx.moveTo(pts[i].x, pts[i].y);
@@ -23,9 +23,18 @@ export function drawConstellation(ctx, rng, accent, count) {
     }
   }
   for (const p of pts) {
+    // glow halo
+    const grd = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 3);
+    grd.addColorStop(0, accent + '55');
+    grd.addColorStop(1, accent + '00');
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r * 3, 0, Math.PI * 2);
+    ctx.fillStyle = grd;
+    ctx.fill();
+    // crisp dot
     ctx.beginPath();
     ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-    ctx.fillStyle = accent + '30';
+    ctx.fillStyle = accent + '90';
     ctx.fill();
   }
 }
@@ -206,19 +215,25 @@ export function drawVignette(ctx) {
 }
 
 /* ── Text ────────────────────────────────────────────────────────── */
-export function drawText(ctx, title, subtitle, accent, fontSize = 64) {
+export function drawText(ctx, title, subtitle, accent, fontSize = 96) {
   const cx = W / 2, cy = H / 2;
   const font = '"Avenir Next", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+  const subSize = Math.round(fontSize * 0.38);
 
-  // glow
+  // Layout: title centered slightly above canvas mid, then accent line, then subtitle
+  const titleY = cy - 40;
+  const lineY  = titleY + Math.round(fontSize * 0.62);
+  const subY   = lineY + subSize + 18;
+
+  // glow pass
   ctx.save();
-  ctx.shadowColor = accent + '60';
-  ctx.shadowBlur = 60;
+  ctx.shadowColor = accent + '80';
+  ctx.shadowBlur = 80;
   ctx.fillStyle = '#ffffff';
   ctx.font = `700 ${fontSize}px ${font}`;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
-  ctx.fillText(title, cx, cy - 20);
+  ctx.fillText(title, cx, titleY);
   ctx.restore();
 
   // crisp title
@@ -226,23 +241,23 @@ export function drawText(ctx, title, subtitle, accent, fontSize = 64) {
   ctx.font = `700 ${fontSize}px ${font}`;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
-  ctx.fillText(title, cx, cy - 20);
+  ctx.fillText(title, cx, titleY);
 
   // accent line
-  const lineW = 80;
   ctx.strokeStyle = accent;
-  ctx.lineWidth = 3;
+  ctx.lineWidth = 4;
   ctx.lineCap = 'round';
   ctx.beginPath();
-  ctx.moveTo(cx - lineW / 2, cy + 24);
-  ctx.lineTo(cx + lineW / 2, cy + 24);
+  ctx.moveTo(cx - 55, lineY);
+  ctx.lineTo(cx + 55, lineY);
   ctx.stroke();
 
   // subtitle
-  const subSize = Math.round(fontSize * 0.375);
   ctx.fillStyle = 'rgba(255,255,255,.65)';
   ctx.font = `500 ${subSize}px ${font}`;
-  ctx.fillText(subtitle, cx, cy + 60);
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(subtitle, cx, subY);
 }
 
 /* ── Branding ────────────────────────────────────────────────────── */

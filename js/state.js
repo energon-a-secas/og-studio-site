@@ -20,6 +20,7 @@ export const sites = [
   { id: 'rush-q-cards',     title: 'Rush Q Cards',         subtitle: 'Corporate Strategy Card Game',       accent: '#0080ff', domain: '' },
   { id: 'snippets',          title: 'Snippets',             subtitle: 'Search, Copy, Ship',                 accent: '#10b981', domain: 'snippets.neorgon.com' },
   { id: 'guild-hall',        title: 'Guild Hall',           subtitle: 'Quest Board',                        accent: '#ef4444', domain: 'guildhall.neorgon.com' },
+  { id: 'parla',             title: 'Parla',                subtitle: 'Latin American Slang Translator',    accent: '#f97316', domain: 'parla.neorgon.com' },
 ];
 
 export const gradientPresets = [
@@ -57,7 +58,7 @@ export const state = {
     pattern: 'constellation',
     density: 'medium',
     gradientIndex: 0,
-    fontSize: 64,
+    fontSize: 96,
     showBranding: true,
     brandingText: 'neorgon.com',
   },

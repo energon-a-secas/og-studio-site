@@ -96,7 +96,7 @@ export function buildCustomCreator() {
       </div>
       <div class="field">
         <label>Title font size: <span id="c-fontsize-val">${c.fontSize}</span>px</label>
-        <input type="range" id="c-fontsize" min="32" max="96" value="${c.fontSize}" style="width:100%">
+        <input type="range" id="c-fontsize" min="48" max="120" value="${c.fontSize}" style="width:100%">
       </div>
     </div>
 
