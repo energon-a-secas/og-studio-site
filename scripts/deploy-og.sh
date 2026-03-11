@@ -43,6 +43,7 @@ deploy "rush-q-cards"     "rush-q-cards-site"
 deploy "snippets"         "snippets-site"
 deploy "guild-hall"       "guild-hall-site"
 deploy "parla"            "parla-site"
+deploy "anatomy"            "parla-site"
 
 echo ""
 echo "Done."

@@ -21,6 +21,9 @@ export const sites = [
   { id: 'snippets',          title: 'Snippets',             subtitle: 'Search, Copy, Ship',                 accent: '#10b981', domain: 'snippets.neorgon.com' },
   { id: 'guild-hall',        title: 'Guild Hall',           subtitle: 'Quest Board',                        accent: '#ef4444', domain: 'guildhall.neorgon.com' },
   { id: 'parla',             title: 'Parla',                subtitle: 'Latin American Slang Translator',    accent: '#f97316', domain: 'parla.neorgon.com' },
+  { id: 'anatomy',           title: 'Anatomy',              subtitle: 'UI Component Explorer',              accent: '#f97316', domain: 'anatomy.neorgon.com' },
+  { id: 'agentlore',           title: 'Agent Lore',              subtitle: 'Small Tutorials',              accent: '#f97316', domain: 'agentlore.neorgon.com' },
+  { id: 'buyhacks',           title: 'Buy Hacks',              subtitle: 'Shopping Tips',              accent: '#f97316', domain: 'buyhacks.neorgon.com' },
 ];
 
 export const gradientPresets = [
