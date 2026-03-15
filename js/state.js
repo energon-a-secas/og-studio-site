@@ -24,6 +24,7 @@ export const sites = [
   { id: 'anatomy',           title: 'Anatomy',              subtitle: 'UI Component Explorer',              accent: '#f97316', domain: 'anatomy.neorgon.com' },
   { id: 'agentlore',           title: 'Agent Lore',              subtitle: 'Small Tutorials',              accent: '#f97316', domain: 'agentlore.neorgon.com' },
   { id: 'buyhacks',           title: 'Buy Hacks',              subtitle: 'Shopping Tips',              accent: '#f97316', domain: 'buyhacks.neorgon.com' },
+  { id: 'team-play',         title: 'Team Play',              subtitle: 'Games & Activities for Teams', accent: '#0d9488', domain: 'teamplay.neorgon.com' },
 ];
 
 export const gradientPresets = [
