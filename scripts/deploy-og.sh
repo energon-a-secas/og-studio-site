@@ -1,10 +1,38 @@
 #!/usr/bin/env bash
 # deploy-og.sh — Copy generated OG images to each project's root as og-preview.jpg
-# Run from og-studio-site/ directory (or the Makefile handles that via cd)
+# Run from og-studio-site/ (make deploy) after make generate.
 
 set -uo pipefail
 ASSETS="$(cd "$(dirname "$0")/.." && pwd)/assets"
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+
+# id:project-dir (id must match assets/og-{id}.jpg from state.js)
+DEPLOYS=(
+  neorgon:neorgon-site
+  skill-roadmap:skill-roadmap-site
+  infra-drills:local-drills-site
+  json-studio:json-builder-site
+  client-says:client-says-site
+  decision-wheel:dynamic-wheel-game
+  reference-matrix:references-api
+  presentation-sage:presentation-sage-site
+  emoji-archive:emoji-site
+  pathfinder:pathfinder-site
+  meme-vault:memes-site
+  og-studio:og-studio-site
+  vibe-check:interviews-site
+  character-sheet:character-sheet-site
+  autopilot:autopilot-site
+  rush-q-cards:rush-q-cards-site
+  snippets:snippets-site
+  guild-hall:guild-hall-site
+  parla:parla-site
+  anatomy:anatomy-site
+  agent-lore:agentlore-site
+  buy-hacks:buyhacks-site
+  team-play:team-play-site
+  playbook:playbook-site
+)
 
 deploy() {
   local id="$1" dir="$2"
@@ -24,26 +52,9 @@ echo ""
 echo "Deploying OG images to project repos…"
 echo ""
 
-deploy "neorgon"          "neorgon-site"
-deploy "skill-roadmap"    "skill-roadmap-site"
-deploy "infra-drills"     "local-drills-site"
-deploy "json-studio"      "json-builder-site"
-deploy "client-says"      "client-says-site"
-deploy "decision-wheel"   "dynamic-wheel-game"
-deploy "reference-matrix" "references-api"
-deploy "presentation-sage" "presentation-sage"
-deploy "emoji-archive"    "emoji-site"
-deploy "pathfinder"       "pathfinder-site"
-deploy "meme-vault"       "memes-site"
-deploy "og-studio"        "og-studio-site"
-deploy "vibe-check"       "interviews-site"
-deploy "character-sheet"  "character-sheet-site"
-deploy "autopilot"        "autopilot-site"
-deploy "rush-q-cards"     "rush-q-cards-site"
-deploy "snippets"         "snippets-site"
-deploy "guild-hall"       "guild-hall-site"
-deploy "parla"            "parla-site"
-deploy "anatomy"            "parla-site"
+for entry in "${DEPLOYS[@]}"; do
+  deploy "${entry%%:*}" "${entry#*:}"
+done
 
 echo ""
 echo "Done."

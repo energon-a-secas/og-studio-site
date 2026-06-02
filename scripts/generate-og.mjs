@@ -15,6 +15,7 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { join, extname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
+import { sites } from '../js/state.js';
 
 const __dir = fileURLToPath(new URL('..', import.meta.url));
 const ASSETS = join(__dir, 'assets');
@@ -49,37 +50,31 @@ function serve() {
 async function main() {
   if (!existsSync(ASSETS)) mkdirSync(ASSETS, { recursive: true });
 
+  const ids = sites.map((s) => s.id);
+  const expected = ids.length;
+
   const srv = await serve();
   const browser = await chromium.launch();
   const page = await browser.newPage();
-  await page.goto(`http://localhost:${PORT}/`, { waitUntil: 'networkidle' });
-  // ES modules are deferred — wait for canvases to be both present AND rendered
-  // (canvas.width > 300 means our JS has set it to 1200)
-  await page.waitForFunction(() => {
+  page.on('pageerror', (err) => console.error('  page error:', err.message));
+
+  await page.goto(`http://localhost:${PORT}/`, { waitUntil: 'load' });
+  await page.waitForFunction(() => window.__ogStudioGalleryReady, { timeout: 15000 });
+  await page.evaluate(() => window.__ogStudioGalleryReady);
+
+  await page.waitForFunction((n) => {
     const canvases = document.querySelectorAll('#gallery-grid .card canvas');
-    return canvases.length > 0 && canvases[0].width === 1200;
-  }, { timeout: 10000 });
+    if (canvases.length < n) return false;
+    const c = canvases[0];
+    if (!c || c.width !== 1200 || c.height !== 630) return false;
+    const ctx = c.getContext('2d');
+    const px = ctx.getImageData(600, 315, 1, 1).data;
+    return px[0] + px[1] + px[2] > 24;
+  }, expected, { timeout: 20000 });
 
-  // Get site count and IDs from the page itself
-  const siteIds = await page.evaluate(() => {
-    const grid = document.getElementById('gallery-grid');
-    const titles = grid.querySelectorAll('.card-title');
-    // Convert title to kebab-case id (matching state.js id convention)
-    return Array.from(titles).map(el => {
-      return el.textContent.trim().toLowerCase().replace(/\s+/g, '-');
-    });
-  });
-
-  // Also read the actual IDs from state.js by parsing the file
-  const stateContent = readFileSync(join(__dir, 'js', 'state.js'), 'utf-8');
-  const idMatches = [...stateContent.matchAll(/id:\s*'([^']+)'/g)].map(m => m[1]);
-
-  const ids = idMatches.length === siteIds.length ? idMatches : siteIds;
   console.log(`Found ${ids.length} sites: ${ids.join(', ')}`);
 
-  // Extract each canvas as JPEG data URL
-  const count = ids.length;
-  for (let i = 0; i < count; i++) {
+  for (let i = 0; i < ids.length; i++) {
     const dataUrl = await page.evaluate((idx) => {
       const grid = document.getElementById('gallery-grid');
       const canvas = grid.querySelectorAll('.card canvas')[idx];
@@ -97,7 +92,7 @@ async function main() {
 
   await browser.close();
   srv.close();
-  console.log(`\nDone — ${count} images saved to assets/`);
+  console.log(`\nDone — ${ids.length} images saved to assets/`);
 }
 
 main().catch(err => { console.error(err); process.exit(1); });

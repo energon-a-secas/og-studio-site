@@ -22,9 +22,10 @@ export const sites = [
   { id: 'guild-hall',        title: 'Guild Hall',           subtitle: 'Quest Board',                        accent: '#ef4444', domain: 'guildhall.neorgon.com' },
   { id: 'parla',             title: 'Parla',                subtitle: 'Latin American Slang Translator',    accent: '#f97316', domain: 'parla.neorgon.com' },
   { id: 'anatomy',           title: 'Anatomy',              subtitle: 'UI Component Explorer',              accent: '#f97316', domain: 'anatomy.neorgon.com' },
-  { id: 'agentlore',           title: 'Agent Lore',              subtitle: 'Small Tutorials',              accent: '#f97316', domain: 'agentlore.neorgon.com' },
-  { id: 'buyhacks',           title: 'Buy Hacks',              subtitle: 'Shopping Tips',              accent: '#f97316', domain: 'buyhacks.neorgon.com' },
-  { id: 'team-play',         title: 'Team Play',              subtitle: 'Games & Activities for Teams', accent: '#0d9488', domain: 'teamplay.neorgon.com' },
+  { id: 'agent-lore',          title: 'Agent Lore',              subtitle: 'Small Tutorials',                accent: '#67e8f9', domain: 'agentlore.neorgon.com' },
+  { id: 'buy-hacks',           title: 'Buy Hacks',               subtitle: 'Shopping Tips',                  accent: '#f59e0b', domain: 'buyhacks.neorgon.com' },
+  { id: 'team-play',           title: 'Team Play',             subtitle: 'Games & Activities for Teams',   accent: '#0d9488', domain: 'teamplay.neorgon.com' },
+  { id: 'playbook',            title: 'Playbook',              subtitle: 'Career Advice for Tech',         accent: '#10b981', domain: 'playbook.neorgon.com' },
 ];
 
 export const gradientPresets = [
