@@ -32,6 +32,11 @@ DEPLOYS=(
   buy-hacks:buyhacks-site
   team-play:team-play-site
   playbook:playbook-site
+  gamebin:gamebin-site
+  lockdown:lockdown-site
+  resume-forge:resume-forge-site
+  safeguard:safeguard-site
+  awesome-sites:awesome-sites-site
 )
 
 deploy() {

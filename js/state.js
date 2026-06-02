@@ -26,6 +26,11 @@ export const sites = [
   { id: 'buy-hacks',           title: 'Buy Hacks',               subtitle: 'Shopping Tips',                  accent: '#f59e0b', domain: 'buyhacks.neorgon.com' },
   { id: 'team-play',           title: 'Team Play',             subtitle: 'Games & Activities for Teams',   accent: '#0d9488', domain: 'teamplay.neorgon.com' },
   { id: 'playbook',            title: 'Playbook',              subtitle: 'Career Advice for Tech',         accent: '#10b981', domain: 'playbook.neorgon.com' },
+  { id: 'gamebin',             title: 'GameBin',               subtitle: 'Curate & Share Game Lists',      accent: '#0063e5', domain: 'gamebin.neorgon.com' },
+  { id: 'lockdown',            title: 'Lockdown',              subtitle: 'Site Security Scanner',          accent: '#f97316', domain: 'lockdown.neorgon.com' },
+  { id: 'resume-forge',        title: 'Resume Forge',          subtitle: 'Gaming-Inspired Resume Builder', accent: '#8b5cf6', domain: 'resume.neorgon.com' },
+  { id: 'safeguard',           title: 'SafeGuard',             subtitle: 'Security Hardening Guides',      accent: '#f87171', domain: 'safeguard.neorgon.com' },
+  { id: 'awesome-sites',       title: 'Awesome Sites',         subtitle: 'Curated External Tabs',          accent: '#f97316', domain: 'awesomesites.neorgon.com' },
 ];
 
 export const gradientPresets = [
