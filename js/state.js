@@ -31,6 +31,9 @@ export const sites = [
   { id: 'resume-forge',        title: 'Resume Forge',          subtitle: 'Gaming-Inspired Resume Builder', accent: '#8b5cf6', domain: 'resume.neorgon.com' },
   { id: 'safeguard',           title: 'SafeGuard',             subtitle: 'Security Hardening Guides',      accent: '#f87171', domain: 'safeguard.neorgon.com' },
   { id: 'awesome-sites',       title: 'Awesome Sites',         subtitle: 'Curated External Tabs',          accent: '#f97316', domain: 'awesomesites.neorgon.com' },
+  { id: 'incident-runbook',    title: 'Incident Runbook',      subtitle: 'Alert to Response Plan',         accent: '#ec4899', domain: 'runbook.neorgon.com' },
+  { id: 'prompt-forge',        title: 'Prompt Forge',          subtitle: 'Context-Rich AI Prompts',        accent: '#a855f7', domain: 'promptforge.neorgon.com' },
+  { id: 'hiring-pack',         title: 'Hiring Pack',           subtitle: 'Scorecard to Decision',          accent: '#34d399', domain: 'hiringpack.neorgon.com' },
   { id: 'questline',           title: 'Questline',             subtitle: 'Operating Model Game Console',   accent: '#2aa8ff', domain: 'questline.neorgon.com' },
 ];
 
