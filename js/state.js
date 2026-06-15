@@ -31,6 +31,7 @@ export const sites = [
   { id: 'resume-forge',        title: 'Resume Forge',          subtitle: 'Gaming-Inspired Resume Builder', accent: '#8b5cf6', domain: 'resume.neorgon.com' },
   { id: 'safeguard',           title: 'SafeGuard',             subtitle: 'Security Hardening Guides',      accent: '#f87171', domain: 'safeguard.neorgon.com' },
   { id: 'awesome-sites',       title: 'Awesome Sites',         subtitle: 'Curated External Tabs',          accent: '#f97316', domain: 'awesomesites.neorgon.com' },
+  { id: 'questline',           title: 'Questline',             subtitle: 'Operating Model Game Console',   accent: '#2aa8ff', domain: 'questline.neorgon.com' },
 ];
 
 export const gradientPresets = [

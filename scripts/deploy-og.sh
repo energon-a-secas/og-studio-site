@@ -37,6 +37,7 @@ DEPLOYS=(
   resume-forge:resume-forge-site
   safeguard:safeguard-site
   awesome-sites:awesome-sites-site
+  questline:questline-site
 )
 
 deploy() {

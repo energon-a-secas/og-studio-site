@@ -40,6 +40,7 @@ export function buildGalleryGrid() {
     actions.className = 'actions';
     const dlBtn = document.createElement('button');
     dlBtn.textContent = 'Download PNG';
+    dlBtn.setAttribute('aria-label', `Download ${site.title} preview as PNG`);
     dlBtn.onclick = () => downloadCanvas(canvas, `og-${site.id}.png`);
     actions.appendChild(dlBtn);
 
