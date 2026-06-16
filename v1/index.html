@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-Frame-Options" content="DENY">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://plausible.io; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://pub-b597cd281a384f98a47e1f043a6c4160.r2.dev; connect-src 'self' https://plausible.io; frame-ancestors 'none'">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <!-- Privacy-first analytics -->
+  <script defer data-domain="ogstudio.neorgon.com" src="https://plausible.io/js/script.js"></script>
+  <title>OG Studio | Social Preview Generator</title>
+  <meta name="description" content="Generate branded 1200x630 social preview images for all Neorgon tools, or create custom OG images with 8 pattern styles">
+  <meta property="og:title" content="OG Studio: Social Preview Generator">
+  <meta property="og:description" content="Generate branded social preview images or create custom OG images with 8 pattern styles">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ogstudio.neorgon.com/">
+  <meta property="og:site_name" content="Neorgon">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="OG Studio: Social Preview Generator">
+  <meta name="twitter:description" content="Generate branded social preview images or create custom OG images with 8 pattern styles">
+  <meta name="twitter:image" content="https://ogstudio.neorgon.com/og-preview.jpg">
+  <meta property="og:image" content="https://ogstudio.neorgon.com/og-preview.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://ogstudio.neorgon.com/">
+  <meta property="og:locale" content="en_US">
+  <meta name="theme-color" content="#040714">
+  <link rel="icon" type="image/x-icon" href="https://pub-b597cd281a384f98a47e1f043a6c4160.r2.dev/v1.0.0/favicon.ico">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "OG Studio",
+    "description": "Generate branded 1200x630 social preview images for all Neorgon tools, or create custom OG images with 8 pattern styles",
+    "url": "https://ogstudio.neorgon.com/",
+    "applicationCategory": "DesignApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "author": { "@type": "Organization", "name": "Neorgon", "url": "https://neorgon.com/" }
+  }
+  </script>
+  <link rel="stylesheet" href="https://pub-b597cd281a384f98a47e1f043a6c4160.r2.dev/v1.0.0/styles/base.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="header-bar">
+    <div class="header-logo">
+      <a href="https://neorgon.com/" target="_blank" rel="noopener noreferrer">
+        <img src="energon-classic-logo.png" class="header-logo-img" alt="Logo">
+      </a>
+      <a href="./" class="header-title-link">
+        <h1>OG Studio</h1>
+        <div class="header-subtitle">Social preview image generator</div>
+      </a>
+    </div>
+
+    <nav>
+      <button class="nav-tab active" data-tab="gallery">Gallery</button>
+      <button class="nav-tab" data-tab="custom">Custom</button>
+    </nav>
+
+    <a class="header-home" href="https://neorgon.com/" title="neorgon.com" aria-label="Neorgon home">
+      <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+      </svg>
+    </a>
+  </header>
+
+  <main class="container" id="main">
+
+    <!-- Gallery tab (default) -->
+    <section class="tab-content active" id="tab-gallery">
+      <div class="config-row">
+        <label for="gallery-pattern">Pattern:</label>
+        <select id="gallery-pattern">
+          <option value="constellation" selected>Constellation</option>
+          <option value="dots">Dot Grid</option>
+          <option value="circuits">Circuit Lines</option>
+          <option value="waves">Waves</option>
+          <option value="hexgrid">Hex Grid</option>
+          <option value="diagonal">Diagonal</option>
+          <option value="radial">Radial</option>
+          <option value="noise">Noise</option>
+          <option value="none">None (gradient only)</option>
+        </select>
+        <label for="gallery-density">Density:</label>
+        <select id="gallery-density">
+          <option value="low">Low</option>
+          <option value="medium" selected>Medium</option>
+          <option value="high">High</option>
+        </select>
+        <button id="download-all" class="secondary">Download All PNGs</button>
+      </div>
+      <div class="grid" id="gallery-grid"></div>
+    </section>
+
+    <!-- Custom creator tab -->
+    <section class="tab-content" id="tab-custom">
+      <div class="creator-layout">
+        <div class="creator-sidebar" id="creator-sidebar"></div>
+        <div class="creator-preview">
+          <div class="card">
+            <canvas id="custom-canvas"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="info-footer">
+    1200x630 social preview images for Open Graph and Twitter Cards
+    <br>
+    Part of <a class="footer-link" href="https://neorgon.com/" target="_blank" rel="noopener noreferrer">Neorgon</a>
+  </footer>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

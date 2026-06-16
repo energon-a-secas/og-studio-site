@@ -32,9 +32,14 @@ export const sites = [
   { id: 'safeguard',           title: 'SafeGuard',             subtitle: 'Security Hardening Guides',      accent: '#f87171', domain: 'safeguard.neorgon.com' },
   { id: 'awesome-sites',       title: 'Awesome Sites',         subtitle: 'Curated External Tabs',          accent: '#f97316', domain: 'awesomesites.neorgon.com' },
   { id: 'incident-runbook',    title: 'Incident Runbook',      subtitle: 'Alert to Response Plan',         accent: '#ec4899', domain: 'runbook.neorgon.com' },
-  { id: 'prompt-forge',        title: 'Prompt Forge',          subtitle: 'Context-Rich AI Prompts',        accent: '#a855f7', domain: 'promptforge.neorgon.com' },
+  { id: 'prompt-forge',        title: 'Prompt Forge',          subtitle: 'Character Prompts & Image Tags', accent: '#db2777', domain: 'promptforge.neorgon.com' },
   { id: 'hiring-pack',         title: 'Hiring Pack',           subtitle: 'Scorecard to Decision',          accent: '#34d399', domain: 'hiringpack.neorgon.com' },
   { id: 'questline',           title: 'Questline',             subtitle: 'Operating Model Game Console',   accent: '#2aa8ff', domain: 'questline.neorgon.com' },
+  { id: 'fitprofile',          title: 'FitProfile',          subtitle: 'Measurements & Size Tracker',    accent: '#14b8a6', domain: 'fitprofile.neorgon.com' },
+  { id: 'failsafe',            title: 'Failsafe',            subtitle: 'Emergency Protocol Builder',     accent: '#6ee7b7', domain: 'failsafe.neorgon.com' },
+  { id: 'briefcard',           title: 'BriefCard',           subtitle: 'Battle Card Builder',            accent: '#0063e5', domain: 'briefcard.neorgon.com' },
+  { id: 'stackrank',           title: 'Stack Rank',          subtitle: 'Shared Priority Lists',          accent: '#f59e0b', domain: 'stackrank.neorgon.com' },
+  { id: 'tubestack',           title: 'TubeStack',           subtitle: 'Engineering YouTube Discovery',  accent: '#67e8f9', domain: 'tubestack.neorgon.com' },
 ];
 
 export const gradientPresets = [
@@ -60,20 +65,211 @@ export const patternList = [
   { id: 'none',          name: 'None' },
 ];
 
-export const state = {
-  activeTab: 'gallery',
-  galleryPattern: 'constellation',
-  galleryDensity: 'medium',
-  canvases: {},
-  custom: {
+export const layoutPresets = {
+  center: {
+    name: 'Center',
+    title: { x: W / 2, y: H / 2 - 40, align: 'center', maxWidth: W * 0.82 },
+    subtitle: { x: W / 2, y: H / 2 + 55, align: 'center', maxWidth: W * 0.72 },
+    showLine: true,
+    lineY: H / 2 + 8,
+    branding: 'bottom-right',
+  },
+  left: {
+    name: 'Left',
+    title: { x: 80, y: H / 2 - 36, align: 'left', maxWidth: W * 0.48 },
+    subtitle: { x: 80, y: H / 2 + 44, align: 'left', maxWidth: W * 0.46 },
+    showLine: true,
+    lineX: 80, lineY: H / 2 + 4, lineW: 120,
+    branding: 'bottom-left',
+    glassPanel: { x: 56, y: H / 2 - 130, w: W * 0.52 + 48, h: 260, r: 22 },
+  },
+  bottom: {
+    name: 'Bottom',
+    title: { x: W / 2, y: H - 176, align: 'center', maxWidth: W * 0.86 },
+    subtitle: { x: W / 2, y: H - 100, align: 'center', maxWidth: W * 0.78 },
+    showLine: false,
+    branding: 'bottom-right',
+    fontSizeMultiplier: 1.12,
+    glassPanel: { x: 56, y: H - 236, w: W - 112, h: 196, r: 22 },
+  },
+  topBadge: {
+    name: 'Top Badge',
+    title: { x: 74, y: 104, align: 'left', maxWidth: W * 0.62 },
+    subtitle: { x: 74, y: 168, align: 'left', maxWidth: W * 0.58 },
+    showLine: false,
+    branding: 'bottom-right',
+    glassPanel: { x: 48, y: 48, w: W * 0.66, h: 156, r: 20 },
+  },
+  split: {
+    name: 'Split',
+    title: { x: 70, y: H / 2 - 52, align: 'left', maxWidth: W * 0.44 },
+    subtitle: { x: W - 70, y: H / 2 + 52, align: 'right', maxWidth: W * 0.44 },
+    showLine: true,
+    lineX: W / 2, lineY1: H / 2 - 80, lineY2: H / 2 + 80,
+    branding: 'bottom-center',
+    glassPanel: { x: 48, y: 48, w: W - 96, h: H - 96, r: 24 },
+  },
+};
+
+export const logoPositions = [
+  { id: 'top-left',     label: 'TL', x: 48,  y: 48 },
+  { id: 'top-center',   label: 'TC', x: W/2, y: 48 },
+  { id: 'top-right',    label: 'TR', x: W-48, y: 48 },
+  { id: 'middle-left',  label: 'ML', x: 48,  y: H/2 },
+  { id: 'middle-center',label: 'MC', x: W/2, y: H/2 },
+  { id: 'middle-right', label: 'MR', x: W-48, y: H/2 },
+  { id: 'bottom-left',  label: 'BL', x: 48,  y: H-48 },
+  { id: 'bottom-center',label: 'BC', x: W/2, y: H-48 },
+  { id: 'bottom-right', label: 'BR', x: W-48, y: H-48 },
+  { id: 'custom',       label: 'Custom', x: 0, y: 0 },
+];
+
+export const brandingPositions = [
+  { id: 'bottom-right',  label: 'Bottom right' },
+  { id: 'bottom-left',   label: 'Bottom left' },
+  { id: 'bottom-center', label: 'Bottom center' },
+  { id: 'top-right',     label: 'Top right' },
+  { id: 'top-left',      label: 'Top left' },
+  { id: 'top-center',    label: 'Top center' },
+];
+
+export function createDefaultCustom() {
+  return {
     title: 'My Project',
     subtitle: 'A short description',
     accent: '#0080ff',
     pattern: 'constellation',
     density: 'medium',
-    gradientIndex: 0,
+    background: {
+      type: 'gradient',
+      gradientIndex: 0,
+      customGradient: {
+        angle: 135,
+        stops: [{ pos: 0, color: '#B015B0' }, { pos: 0.45, color: '#3D0080' }, { pos: 1, color: '#040714' }],
+      },
+      solidColor: '#040714',
+    },
+    layout: 'center',
     fontSize: 96,
+    textAlign: 'center',
+    titleWeight: 700,
+    subtitleWeight: 500,
+    letterSpacing: 0,
+    lineHeight: 1.22,
+    glowIntensity: 0.5,
     showBranding: true,
     brandingText: 'neorgon.com',
+    brandingPosition: 'bottom-right',
+    logo: {
+      src: '',
+      x: W - 48,
+      y: H - 48,
+      scale: 0.75,
+      opacity: 0.7,
+      rotation: 0,
+      position: 'bottom-right',
+      tint: false,
+      shadow: true,
+    },
+    showBadge: true,
+    effects: {
+      vignette: 0.35,
+      grain: 0,
+      glassPanel: false,
+    },
+  };
+}
+
+function clone(obj) {
+  try {
+    return structuredClone(obj);
+  } catch {
+    return JSON.parse(JSON.stringify(obj));
+  }
+}
+
+export function resolveBackground(custom) {
+  const bg = custom.background;
+  if (!bg || bg.type === 'solid') {
+    return { type: 'solid', solidColor: bg?.solidColor || '#040714' };
+  }
+  if (bg.gradientIndex === -1 || bg.gradientIndex === 'custom') {
+    return { type: 'gradient', angle: bg.customGradient?.angle ?? 135, stops: bg.customGradient?.stops ?? gradientPresets[0].stops };
+  }
+  const preset = gradientPresets[bg.gradientIndex] || gradientPresets[0];
+  return { type: 'gradient', angle: 135, stops: preset.stops };
+}
+
+export function serializeCustom(custom) {
+  let payload = custom;
+  const json = JSON.stringify(payload);
+  if (json.length > 24000 && payload.logo?.src) {
+    payload = { ...payload, logo: { ...payload.logo, src: '' } };
+  }
+  const base64 = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
+  return base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+
+export function deserializeCustom(hash) {
+  try {
+    const base64 = hash.replace(/-/g, '+').replace(/_/g, '/');
+    const padded = base64.padEnd(base64.length + (4 - (base64.length % 4)) % 4, '=');
+    const json = decodeURIComponent(escape(atob(padded)));
+    const parsed = JSON.parse(json);
+    return parsed;
+  } catch (e) {
+    return null;
+  }
+}
+
+export const state = {
+  activeTab: 'gallery',
+  galleryPattern: 'constellation',
+  galleryDensity: 'medium',
+  canvases: {},
+  custom: createDefaultCustom(),
+  galleryLogo: {
+    src: 'assets/watermark-logo.png',
+    scale: 0.6,
+    opacity: 0.65,
+    rotation: 0,
+    position: 'bottom-right',
+    tint: false,
+    shadow: true,
   },
+  history: [],
+  historyIndex: -1,
 };
+
+export function pushHistory() {
+  const snap = clone(state.custom);
+  if (state.historyIndex >= 0 && JSON.stringify(state.history[state.historyIndex]) === JSON.stringify(snap)) {
+    return;
+  }
+  state.history = state.history.slice(0, state.historyIndex + 1);
+  state.history.push(snap);
+  if (state.history.length > 40) state.history.shift();
+  else state.historyIndex++;
+}
+
+export function undo() {
+  if (state.historyIndex > 0) {
+    state.historyIndex--;
+    state.custom = clone(state.history[state.historyIndex]);
+    return true;
+  }
+  return false;
+}
+
+export function redo() {
+  if (state.historyIndex < state.history.length - 1) {
+    state.historyIndex++;
+    state.custom = clone(state.history[state.historyIndex]);
+    return true;
+  }
+  return false;
+}
+
+if (typeof window !== 'undefined') {
+  pushHistory();
+}

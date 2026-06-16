@@ -1,5 +1,5 @@
-import { W, H } from './state.js';
-import { mulberry32 } from './utils.js';
+import { W, H, gradientPresets, layoutPresets, logoPositions, brandingPositions } from './state.js';
+import { mulberry32, clamp, wrapText } from './utils.js';
 
 /* ── Pattern: Constellation ──────────────────────────────────────── */
 export function drawConstellation(ctx, rng, accent, count) {
@@ -23,7 +23,6 @@ export function drawConstellation(ctx, rng, accent, count) {
     }
   }
   for (const p of pts) {
-    // glow halo
     const grd = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 3);
     grd.addColorStop(0, accent + '55');
     grd.addColorStop(1, accent + '00');
@@ -31,7 +30,6 @@ export function drawConstellation(ctx, rng, accent, count) {
     ctx.arc(p.x, p.y, p.r * 3, 0, Math.PI * 2);
     ctx.fillStyle = grd;
     ctx.fill();
-    // crisp dot
     ctx.beginPath();
     ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
     ctx.fillStyle = accent + '90';
@@ -147,7 +145,6 @@ export function drawRadial(ctx, rng, accent, count) {
     ctx.lineTo(cx + Math.cos(angle) * outerR, cy + Math.sin(angle) * outerR);
     ctx.stroke();
   }
-  // center glow
   const grd = ctx.createRadialGradient(cx, cy, 0, cx, cy, 120);
   grd.addColorStop(0, accent + '12');
   grd.addColorStop(1, accent + '00');
@@ -197,74 +194,308 @@ function hashStrLocal(s) {
   return h;
 }
 
-/* ── Background gradient ─────────────────────────────────────────── */
-export function drawGradientBg(ctx, stops) {
-  const grd = ctx.createLinearGradient(0, 0, W, H);
-  for (const s of stops) grd.addColorStop(s.pos, s.color);
+/* ── Background gradient / solid ─────────────────────────────────── */
+export function drawGradientBg(ctx, bg) {
+  if (Array.isArray(bg)) {
+    bg = { type: 'gradient', angle: 135, stops: bg };
+  }
+  if (bg.type === 'solid') {
+    ctx.fillStyle = bg.solidColor || '#000';
+    ctx.fillRect(0, 0, W, H);
+    return;
+  }
+  const angle = ((bg.angle ?? 135) - 90) * Math.PI / 180;
+  const len = Math.sqrt(W * W + H * H) / 2;
+  const x1 = W / 2 - Math.cos(angle) * len;
+  const y1 = H / 2 - Math.sin(angle) * len;
+  const x2 = W / 2 + Math.cos(angle) * len;
+  const y2 = H / 2 + Math.sin(angle) * len;
+  const grd = ctx.createLinearGradient(x1, y1, x2, y2);
+  for (const s of bg.stops) grd.addColorStop(s.pos, s.color);
   ctx.fillStyle = grd;
   ctx.fillRect(0, 0, W, H);
 }
 
 /* ── Vignette ────────────────────────────────────────────────────── */
-export function drawVignette(ctx) {
-  const grd = ctx.createRadialGradient(W / 2, H / 2, W * 0.25, W / 2, H / 2, W * 0.7);
+export function drawVignette(ctx, strength = 0.35) {
+  if (strength <= 0) return;
+  const alpha = clamp(strength, 0, 1) * 0.65;
+  const grd = ctx.createRadialGradient(W / 2, H / 2, W * 0.25, W / 2, H / 2, W * 0.75);
   grd.addColorStop(0, 'rgba(0,0,0,0)');
-  grd.addColorStop(1, 'rgba(0,0,0,0.35)');
+  grd.addColorStop(1, `rgba(0,0,0,${alpha.toFixed(3)})`);
   ctx.fillStyle = grd;
   ctx.fillRect(0, 0, W, H);
 }
 
-/* ── Text ────────────────────────────────────────────────────────── */
-export function drawText(ctx, title, subtitle, accent, fontSize = 96) {
-  const cx = W / 2, cy = H / 2;
-  const font = '"Avenir Next", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
-  const subSize = Math.round(fontSize * 0.38);
-
-  // Layout: title centered slightly above canvas mid, then accent line, then subtitle
-  const titleY = cy - 40;
-  const lineY  = titleY + Math.round(fontSize * 0.62);
-  const subY   = lineY + subSize + 18;
-
-  // glow pass
-  ctx.save();
-  ctx.shadowColor = accent + '80';
-  ctx.shadowBlur = 80;
-  ctx.fillStyle = '#ffffff';
-  ctx.font = `700 ${fontSize}px ${font}`;
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.fillText(title, cx, titleY);
-  ctx.restore();
-
-  // crisp title
-  ctx.fillStyle = '#ffffff';
-  ctx.font = `700 ${fontSize}px ${font}`;
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.fillText(title, cx, titleY);
-
-  // accent line
-  ctx.strokeStyle = accent;
-  ctx.lineWidth = 4;
-  ctx.lineCap = 'round';
-  ctx.beginPath();
-  ctx.moveTo(cx - 55, lineY);
-  ctx.lineTo(cx + 55, lineY);
-  ctx.stroke();
-
-  // subtitle
-  ctx.fillStyle = 'rgba(255,255,255,.65)';
-  ctx.font = `500 ${subSize}px ${font}`;
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.fillText(subtitle, cx, subY);
+/* ── Grain overlay ───────────────────────────────────────────────── */
+export function drawGrain(ctx, intensity = 0) {
+  if (intensity <= 0) return;
+  const imageData = ctx.getImageData(0, 0, W, H);
+  const data = imageData.data;
+  const strength = clamp(intensity, 0, 1) * 22;
+  for (let i = 0; i < data.length; i += 8) {
+    const noise = (Math.random() - 0.5) * strength;
+    data[i] = clamp(data[i] + noise, 0, 255);
+    data[i + 1] = clamp(data[i + 1] + noise, 0, 255);
+    data[i + 2] = clamp(data[i + 2] + noise, 0, 255);
+  }
+  ctx.putImageData(imageData, 0, 0);
 }
 
-/* ── Branding ────────────────────────────────────────────────────── */
-export function drawBranding(ctx, text = 'neorgon.com') {
+/* ── Glass panel ─────────────────────────────────────────────────── */
+export function drawGlassPanel(ctx, x, y, w, h, r = 20) {
+  ctx.save();
+  ctx.beginPath();
+  ctx.roundRect(x, y, w, h, r);
+  ctx.fillStyle = 'rgba(0,0,0,0.28)';
+  ctx.fill();
+  ctx.beginPath();
+  ctx.roundRect(x, y, w, h, r);
+  ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+  ctx.lineWidth = 1;
+  ctx.stroke();
+  ctx.restore();
+}
+
+/* ── Text rendering with layouts, wrapping, alignment ────────────── */
+const fontFamily = '"Avenir Next", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+
+function measureTextLines(ctx, lines, fontSize, weight, letterSpacing) {
+  ctx.font = `${weight} ${fontSize}px ${fontFamily}`;
+  ctx.letterSpacing = `${letterSpacing}px`;
+  let maxW = 0;
+  for (const line of lines) {
+    maxW = Math.max(maxW, ctx.measureText(line).width);
+  }
+  return maxW;
+}
+
+function drawTextBlock(ctx, lines, anchorX, anchorY, fontSize, weight, align, letterSpacing, lineHeight, color, glowColor, glowIntensity) {
+  const lh = fontSize * lineHeight;
+  const totalH = lines.length * lh;
+  ctx.font = `${weight} ${fontSize}px ${fontFamily}`;
+  ctx.letterSpacing = `${letterSpacing}px`;
+  ctx.textBaseline = 'top';
+
+  let startY = anchorY - totalH / 2;
+
+  if (glowIntensity > 0) {
+    ctx.save();
+    ctx.shadowColor = glowColor || 'rgba(0,0,0,0.35)';
+    ctx.shadowBlur = 80 * clamp(glowIntensity, 0, 1);
+    ctx.fillStyle = color;
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+      const w = ctx.measureText(line).width;
+      let x = anchorX;
+      if (align === 'center') x -= w / 2;
+      else if (align === 'right') x -= w;
+      ctx.fillText(line, x, startY + i * lh);
+    }
+    ctx.restore();
+  }
+
+  ctx.fillStyle = color;
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    const w = ctx.measureText(line).width;
+    let x = anchorX;
+    if (align === 'center') x -= w / 2;
+    else if (align === 'right') x -= w;
+    ctx.fillText(line, x, startY + i * lh);
+  }
+
+  return { x: anchorX, y: startY, w: measureTextLines(ctx, lines, fontSize, weight, letterSpacing), h: totalH };
+}
+
+export function drawText(ctx, title, subtitle, accent, options = {}) {
+  const {
+    layout = 'center',
+    fontSize = 96,
+    textAlign = 'center',
+    titleWeight = 700,
+    subtitleWeight = 500,
+    letterSpacing = 0,
+    lineHeight = 1.22,
+    glowIntensity = 0.5,
+    effects = {},
+  } = options;
+
+  const layoutDef = layoutPresets[layout] || layoutPresets.center;
+  const titleCfg = { ...layoutDef.title, align: textAlign || layoutDef.title.align };
+  const subCfg = { ...layoutDef.subtitle, align: textAlign || layoutDef.subtitle.align };
+
+  let titleSize = Math.round(fontSize);
+  if (layoutDef.fontSizeMultiplier) titleSize = Math.round(titleSize * layoutDef.fontSizeMultiplier);
+  const subSize = Math.round(fontSize * 0.38);
+
+  ctx.save();
+
+  const titleLines = wrapText(ctx, title, titleCfg.maxWidth);
+  const subLines = wrapText(ctx, subtitle, subCfg.maxWidth);
+
+  // Pre-set fonts for measurement
+  ctx.font = `${titleWeight} ${titleSize}px ${fontFamily}`;
+  const titleBoxW = measureTextLines(ctx, titleLines, titleSize, titleWeight, letterSpacing);
+  const titleBoxH = titleLines.length * titleSize * lineHeight;
+
+  ctx.font = `${subtitleWeight} ${subSize}px ${fontFamily}`;
+  const subBoxW = measureTextLines(ctx, subLines, subSize, subtitleWeight, letterSpacing);
+  const subBoxH = subLines.length * subSize * lineHeight;
+
+  let minX = titleCfg.x;
+  let maxX = titleCfg.x;
+  let minY = titleCfg.y - titleBoxH / 2;
+  let maxY = titleCfg.y + titleBoxH / 2;
+
+  if (subCfg.align === 'left') {
+    minX = Math.min(minX, subCfg.x);
+    maxX = Math.max(maxX, subCfg.x + subBoxW);
+  } else if (subCfg.align === 'right') {
+    minX = Math.min(minX, subCfg.x - subBoxW);
+    maxX = Math.max(maxX, subCfg.x);
+  } else {
+    minX = Math.min(minX, subCfg.x - subBoxW / 2);
+    maxX = Math.max(maxX, subCfg.x + subBoxW / 2);
+  }
+  minY = Math.min(minY, subCfg.y - subBoxH / 2);
+  maxY = Math.max(maxY, subCfg.y + subBoxH / 2);
+
+  if (effects.glassPanel || layoutDef.glassPanel) {
+    const panel = layoutDef.glassPanel;
+    if (panel) drawGlassPanel(ctx, panel.x, panel.y, panel.w, panel.h, panel.r);
+    else drawGlassPanel(ctx, minX - 40, minY - 30, maxX - minX + 80, maxY - minY + 60, 22);
+  }
+
+  drawTextBlock(ctx, titleLines, titleCfg.x, titleCfg.y, titleSize, titleWeight, titleCfg.align, letterSpacing, lineHeight, '#ffffff', accent + '80', glowIntensity);
+  drawTextBlock(ctx, subLines, subCfg.x, subCfg.y, subSize, subtitleWeight, subCfg.align, letterSpacing, lineHeight, 'rgba(255,255,255,.65)', accent + '55', glowIntensity * 0.7);
+
+  // Accent line
+  if (layoutDef.showLine) {
+    ctx.strokeStyle = accent;
+    ctx.lineWidth = 4;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    if (layoutDef.lineX !== undefined && layoutDef.lineW !== undefined) {
+      ctx.moveTo(layoutDef.lineX, layoutDef.lineY);
+      ctx.lineTo(layoutDef.lineX + layoutDef.lineW, layoutDef.lineY);
+    } else if (layoutDef.lineY1 !== undefined) {
+      ctx.moveTo(layoutDef.lineX, layoutDef.lineY1);
+      ctx.lineTo(layoutDef.lineX, layoutDef.lineY2);
+    } else {
+      ctx.moveTo(W / 2 - 55, layoutDef.lineY);
+      ctx.lineTo(W / 2 + 55, layoutDef.lineY);
+    }
+    ctx.stroke();
+  }
+
+  ctx.restore();
+}
+
+/* ── Logo / watermark ────────────────────────────────────────────── */
+const logoCache = new Map();
+
+export async function getLogoImage(src) {
+  if (!src) return null;
+  if (logoCache.has(src)) {
+    const img = logoCache.get(src);
+    if (img.complete && img.naturalWidth) return img;
+  }
+  const img = new Image();
+  if (!src.startsWith('data:')) img.crossOrigin = 'anonymous';
+  img.src = src;
+  try {
+    await img.decode();
+    logoCache.set(src, img);
+    return img;
+  } catch (e) {
+    console.warn('Logo load failed', src);
+    return null;
+  }
+}
+
+export async function drawLogo(ctx, logo, accent) {
+  if (!logo || !logo.src) return;
+  const img = await getLogoImage(logo.src);
+  if (!img || !img.naturalWidth) return;
+
+  const preset = logoPositions.find(p => p.id === logo.position) || logoPositions[8];
+  let x = logo.x ?? preset.x;
+  let y = logo.y ?? preset.y;
+  if (logo.position && logo.position !== 'custom') {
+    x = preset.x;
+    y = preset.y;
+  }
+
+  const baseScale = 120 / img.naturalWidth;
+  const w = img.naturalWidth * baseScale * clamp(logo.scale ?? 0.75, 0.1, 3);
+  const h = img.naturalHeight * baseScale * clamp(logo.scale ?? 0.75, 0.1, 3);
+
+  ctx.save();
+  ctx.globalAlpha = clamp(logo.opacity ?? 0.7, 0, 1);
+  ctx.translate(x, y);
+  ctx.rotate((logo.rotation ?? 0) * Math.PI / 180);
+
+  if (logo.shadow) {
+    ctx.shadowColor = 'rgba(0,0,0,0.45)';
+    ctx.shadowBlur = 24;
+    ctx.shadowOffsetX = 4;
+    ctx.shadowOffsetY = 4;
+  }
+
+  ctx.drawImage(img, -w / 2, -h / 2, w, h);
+
+  if (logo.tint) {
+    ctx.globalCompositeOperation = 'source-atop';
+    ctx.fillStyle = accent;
+    ctx.globalAlpha = 0.75;
+    ctx.fillRect(-w / 2, -h / 2, w, h);
+  }
+
+  ctx.restore();
+}
+
+/* ── Branding text ───────────────────────────────────────────────── */
+export function drawBranding(ctx, text = 'neorgon.com', position = 'bottom-right') {
+  const pos = brandingPositions.find(p => p.id === position) || brandingPositions[0];
+  let x = W - 32, y = H - 24, align = 'right';
+  switch (pos.id) {
+    case 'bottom-left':   x = 32; y = H - 24; align = 'left'; break;
+    case 'bottom-center': x = W / 2; y = H - 24; align = 'center'; break;
+    case 'top-right':     x = W - 32; y = 30; align = 'right'; break;
+    case 'top-left':      x = 32; y = 30; align = 'left'; break;
+    case 'top-center':    x = W / 2; y = 30; align = 'center'; break;
+  }
   ctx.fillStyle = 'rgba(255,255,255,.3)';
-  ctx.font = '500 16px "Avenir Next", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
-  ctx.textAlign = 'right';
-  ctx.textBaseline = 'bottom';
-  ctx.fillText(text, W - 32, H - 24);
+  ctx.font = `500 16px ${fontFamily}`;
+  ctx.textAlign = align;
+  ctx.textBaseline = pos.id.startsWith('top') ? 'top' : 'alphabetic';
+  ctx.fillText(text, x, y);
+}
+
+/* ── Made-with badge ─────────────────────────────────────────────── */
+export function drawBadge(ctx, show = true) {
+  if (!show) return;
+  const text = 'Made with OG Studio';
+  const pad = { x: 14, y: 8 };
+  ctx.font = `600 13px ${fontFamily}`;
+  const metrics = ctx.measureText(text);
+  const bw = metrics.width + pad.x * 2;
+  const bh = 22 + pad.y * 2 - 8;
+  const x = 24;
+  const y = H - 24 - bh;
+
+  ctx.save();
+  ctx.beginPath();
+  ctx.roundRect(x, y, bw, bh, 10);
+  ctx.fillStyle = 'rgba(0,0,0,0.35)';
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(255,255,255,0.12)';
+  ctx.lineWidth = 1;
+  ctx.stroke();
+  ctx.fillStyle = 'rgba(255,255,255,.55)';
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(text, x + pad.x, y + bh / 2);
+  ctx.restore();
 }

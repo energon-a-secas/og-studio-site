@@ -2,7 +2,7 @@
 
 # OG Studio
 
-Generate branded 1200×630 social preview images for all Neorgon tools, or create custom OG images with multiple pattern styles.
+Generate branded 1200×630 social preview images for all Neorgon tools, or create custom OG images with multiple pattern styles, layouts, and brand assets.
 
 [![Live][badge-site]][url-site]
 [![HTML5][badge-html]][url-html]
@@ -30,7 +30,7 @@ Generate branded 1200×630 social preview images for all Neorgon tools, or creat
 
 ## Overview
 
-OG Studio generates branded 1200x630 social preview (Open Graph) images for all Neorgon tools. Images are rendered on `<canvas>` and exported as PNG. A custom mode allows creating OG images with arbitrary titles and subtitles.
+OG Studio generates branded 1200x630 social preview (Open Graph) images for all Neorgon tools. Images are rendered on `<canvas>` and exported as PNG. A custom mode allows creating OG images with arbitrary titles, subtitles, logos, layouts, and visual effects.
 
 **Live:** [ogstudio.neorgon.com](https://ogstudio.neorgon.com/)
 
@@ -41,6 +41,16 @@ OG Studio generates branded 1200x630 social preview (Open Graph) images for all 
 - Per-site accent colors matching the Neorgon brand palette
 - Individual and bulk PNG download
 - Custom mode for arbitrary titles and subtitles
+- **5+ layout presets** (center, left, bottom, top badge, split)
+- **Logo / watermark overlay** with position grid, scale, opacity, rotation, tint, and shadow
+- **Custom gradient builder** with editable stops and angle, plus solid-color background
+- **Enhanced typography**: text alignment, font weights, letter spacing, line height, glow
+- **Visual effects**: vignette strength, grain intensity, frosted glass panel
+- **Shareable URL state** — copy a link that restores the custom design
+- **Undo / redo** with keyboard shortcuts (Ctrl/Cmd+Z, Ctrl/Cmd+Shift+Z/Y)
+- **Remix** button to randomize style while keeping text and logo
+- Optional "Made with OG Studio" badge on exports
+- v1 archive accessible from the footer
 - Pre-generated PNGs available in `assets/`
 
 ## Architecture
@@ -56,23 +66,30 @@ og-studio-site/
 │   └── style.css       # All styles
 ├── js/
 │   └── *.js            # ES module scripts
-└── assets/             # Pre-generated OG PNGs
+├── assets/             # Pre-generated OG images
+└── v1/                 # Archived v1 files (read-only)
 ```
 
 ## Tech stack
 
 - Pure HTML + CSS + Canvas API + JavaScript ES modules
 - OG images rendered on `<canvas>` and exported as PNG
-- No dependencies, no build step
+- No runtime dependencies, no build step
 
 ## Run locally
 
 ```bash
 cd og-studio-site
-python3 -m http.server
+make serve
 ```
 
-Then open [http://localhost:8000](http://localhost:8000). ES modules require an HTTP server (`file://` will not work).
+Or with Python directly:
+
+```bash
+python3 -m http.server 8809
+```
+
+Then open [http://localhost:8809](http://localhost:8809). ES modules require an HTTP server (`file://` will not work).
 
 ---
 

@@ -14,6 +14,10 @@ export function hashStr(s) {
   return h;
 }
 
+export function clamp(n, min, max) {
+  return Math.max(min, Math.min(max, n));
+}
+
 /** Show a temporary toast notification. */
 let _toastTimer = null;
 export function showToast(msg) {
@@ -30,14 +34,14 @@ export function showToast(msg) {
   _toastTimer = setTimeout(() => el.classList.remove('visible'), 2000);
 }
 
-export function downloadCanvas(canvas, filename) {
+export function downloadCanvas(canvas, filename, mime = 'image/png') {
   canvas.toBlob(blob => {
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
     a.download = filename;
     a.click();
     URL.revokeObjectURL(a.href);
-  }, 'image/png');
+  }, mime);
 }
 
 export function hexToRgb(hex) {
@@ -45,4 +49,47 @@ export function hexToRgb(hex) {
   const g = parseInt(hex.slice(3, 5), 16);
   const b = parseInt(hex.slice(5, 7), 16);
   return { r, g, b };
+}
+
+export function rgbToHex(r, g, b) {
+  return '#' + [r, g, b].map(v => clamp(Math.round(v), 0, 255).toString(16).padStart(2, '0')).join('');
+}
+
+export function contrastColor(hex) {
+  const { r, g, b } = hexToRgb(hex);
+  const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+  return yiq >= 128 ? '#000000' : '#ffffff';
+}
+
+export function wrapText(ctx, text, maxWidth) {
+  if (!text) return [''];
+  const words = String(text).split(' ');
+  const lines = [];
+  let current = '';
+  for (const word of words) {
+    const test = current ? current + ' ' + word : word;
+    const metrics = ctx.measureText(test);
+    if (metrics.width > maxWidth && current) {
+      lines.push(current);
+      current = word;
+    } else {
+      current = test;
+    }
+  }
+  if (current) lines.push(current);
+  return lines.length ? lines : [''];
+}
+
+export function dataUrlSize(dataUrl) {
+  if (!dataUrl) return 0;
+  const base64 = dataUrl.split(',')[1] || '';
+  return Math.round(base64.length * 0.75);
+}
+
+export function debounce(fn, ms) {
+  let t;
+  return (...args) => {
+    clearTimeout(t);
+    t = setTimeout(() => fn(...args), ms);
+  };
 }
