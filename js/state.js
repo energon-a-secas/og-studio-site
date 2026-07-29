@@ -40,6 +40,12 @@ export const sites = [
   { id: 'briefcard',           title: 'BriefCard',           subtitle: 'Battle Card Builder',            accent: '#0063e5', domain: 'briefcard.neorgon.com' },
   { id: 'stackrank',           title: 'Stack Rank',          subtitle: 'Shared Priority Lists',          accent: '#f59e0b', domain: 'stackrank.neorgon.com' },
   { id: 'tubestack',           title: 'TubeStack',           subtitle: 'Engineering YouTube Discovery',  accent: '#67e8f9', domain: 'tubestack.neorgon.com' },
+  { id: 'mettle',              title: 'Mettle',              subtitle: 'Reasoning Maturity Probe',       accent: '#f59e0b', domain: 'mettle.neorgon.com' },
+  { id: 'doorman',             title: 'Doorman',             subtitle: 'Build-vs-Buy Scoper',            accent: '#c2904a', domain: 'doorman.neorgon.com' },
+  { id: 'loadout',             title: 'Loadout',             subtitle: "Balance Your Team's Week",       accent: '#d97706', domain: 'loadout.neorgon.com' },
+  { id: 'cardforge',           title: 'CardForge',           subtitle: 'Rush Q Card Designer',           accent: '#7c3aed', domain: 'cardforge.neorgon.com' },
+  { id: 'sitrep',              title: 'Sitrep',              subtitle: 'Santiago Situation Board',        accent: '#dc2626', domain: 'sitrep.neorgon.com' },
+  { id: 'primer',              title: 'Primer',              subtitle: 'Learn ML by Building',            accent: '#6366f1', domain: 'primer.neorgon.com' },
 ];
 
 export const gradientPresets = [

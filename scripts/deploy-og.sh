@@ -38,6 +38,12 @@ DEPLOYS=(
   safeguard:safeguard-site
   awesome-sites:awesome-sites-site
   questline:questline-site
+  mettle:mettle-site
+  doorman:doorman-site
+  loadout:loadout-site
+  cardforge:cardforge-site
+  sitrep:sitrep-site
+  primer:primer-site
 )
 
 deploy() {
