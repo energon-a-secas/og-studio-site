@@ -32,47 +32,8 @@ body {
   --dur-fast: 120ms; --dur: 200ms;
 }
 
-/* ── Header ───────────────────────────────────────────────────────── */
-.header-bar {
-  background: linear-gradient(in oklch 135deg, #B015B0 0%, #3D0080 50%, #040714 100%);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border-subtle);
-  padding: 0 var(--space-6);
-  height: 68px;
-  position: sticky;
-  top: 0;
-  z-index: 200;
-  display: flex;
-  align-items: center;
-}
-
-.header-logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-
-.header-logo-img {
-  height: 36px; width: auto; flex-shrink: 0;
-  filter: brightness(0) invert(1);
-  transition: transform 0.3s var(--ease-snap);
-  display: block;
-}
-.header-logo-img:hover { transform: scale(1.14) rotate(-9deg); }
-
-.header-logo h1 { font-size: 1.2em; font-weight: 600; color: var(--text-primary); letter-spacing: .5px; }
-.header-subtitle { font-size: .82em; color: rgba(255,255,255,.72); font-weight: 500; margin-top: 3px; }
-
-.header-home {
-  display: flex; align-items: center;
-  padding: 5px;
-  color: rgba(255,255,255,0.9); text-decoration: none;
-  border-radius: var(--radius-sm);
-  transition: color var(--dur), background var(--dur); flex-shrink: 0;
-  margin-left: 5px;
-}
-.header-home:hover { color: #fff; background: rgba(255,255,255,0.12); }
-.header-home svg { width: 34px; height: 34px; display: block; }
-
 /* ── Nav tabs ─────────────────────────────────────────────────────── */
 nav {
-  margin-left: auto;
   display: flex;
   align-items: center;
   gap: 2px;
@@ -413,15 +374,11 @@ button:active, .btn:active {
 }
 
 @media (max-width: 600px) {
-  .header-bar { padding: 0 var(--space-4); }
   .container { padding: var(--space-4); }
   .grid { grid-template-columns: 1fr; }
   .nav-tab { padding: 6px 12px; font-size: var(--text-xs); }
   .pattern-grid { grid-template-columns: repeat(2, 1fr); }
 }
-
-/* ── Template alignment (header title link + footer) ── */
-.header-title-link { text-decoration: none; color: inherit; }
 .info-footer {
   text-align: center;
   padding: 24px 24px 28px;
