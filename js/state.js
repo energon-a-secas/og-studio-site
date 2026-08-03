@@ -44,8 +44,9 @@ export const sites = [
   { id: 'doorman',             title: 'Doorman',             subtitle: 'Build-vs-Buy Scoper',            accent: '#c2904a', domain: 'doorman.neorgon.com' },
   { id: 'loadout',             title: 'Loadout',             subtitle: "Balance Your Team's Week",       accent: '#d97706', domain: 'loadout.neorgon.com' },
   { id: 'cardforge',           title: 'CardForge',           subtitle: 'Rush Q Card Designer',           accent: '#7c3aed', domain: 'cardforge.neorgon.com' },
-  { id: 'sitrep',              title: 'Sitrep',              subtitle: 'Santiago Situation Board',        accent: '#dc2626', domain: 'sitrep.neorgon.com' },
+  { id: 'radar',               title: 'Radar',               subtitle: 'Santiago Situation Board',        accent: '#dc2626', domain: 'radar.neorgon.com' },
   { id: 'primer',              title: 'Primer',              subtitle: 'Learn ML by Building',            accent: '#6366f1', domain: 'primer.neorgon.com' },
+  { id: 'minimap',             title: 'Minimap',             subtitle: 'The Minimap-Only ARPG',           accent: '#7dd3fc', domain: 'minimap.neorgon.com' },
 ];
 
 export const gradientPresets = [

@@ -42,8 +42,9 @@ DEPLOYS=(
   doorman:doorman-site
   loadout:loadout-site
   cardforge:cardforge-site
-  sitrep:sitrep-site
+  radar:radar-site
   primer:primer-site
+  minimap:minimap-site
 )
 
 deploy() {
