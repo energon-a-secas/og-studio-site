@@ -45,6 +45,7 @@ DEPLOYS=(
   radar:radar-site
   primer:primer-site
   minimap:minimap-site
+  affinity:affinity-site
 )
 
 deploy() {

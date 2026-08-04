@@ -47,6 +47,7 @@ export const sites = [
   { id: 'radar',               title: 'Radar',               subtitle: 'Santiago Situation Board',        accent: '#dc2626', domain: 'radar.neorgon.com' },
   { id: 'primer',              title: 'Primer',              subtitle: 'Learn ML by Building',            accent: '#6366f1', domain: 'primer.neorgon.com' },
   { id: 'minimap',             title: 'Minimap',             subtitle: 'The Minimap-Only ARPG',           accent: '#7dd3fc', domain: 'minimap.neorgon.com' },
+  { id: 'affinity',            title: 'Affinity',            subtitle: 'Nen Types for Tech Careers',      accent: '#e11d48', domain: 'affinity.neorgon.com' },
 ];
 
 export const gradientPresets = [
