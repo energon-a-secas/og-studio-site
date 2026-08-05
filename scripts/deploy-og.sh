@@ -46,6 +46,7 @@ DEPLOYS=(
   primer:primer-site
   minimap:minimap-site
   affinity:affinity-site
+  glassbox:glassbox-site
 )
 
 deploy() {

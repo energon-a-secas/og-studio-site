@@ -2,38 +2,86 @@ import { W, H, gradientPresets, layoutPresets, logoPositions, brandingPositions 
 import { mulberry32, clamp, wrapText } from './utils.js';
 
 /* ── Pattern: Constellation ──────────────────────────────────────── */
+function toHex2(n) {
+  return clamp(Math.round(n), 0, 255).toString(16).padStart(2, '0');
+}
+
+function mixHex(hexA, hexB, t) {
+  const a = parseInt(hexA.slice(1), 16);
+  const b = parseInt(hexB.slice(1), 16);
+  const ch = (shift) => Math.round(((a >> shift) & 255) + (((b >> shift) & 255) - ((a >> shift) & 255)) * t);
+  return `#${toHex2(ch(16))}${toHex2(ch(8))}${toHex2(ch(0))}`;
+}
+
 export function drawConstellation(ctx, rng, accent, count) {
+  const cx = W / 2, cy = H / 2;
+  const clearRx = W * 0.42, clearRy = H * 0.30;
+  const visibility = (x, y) => {
+    const ed = Math.sqrt(((x - cx) / clearRx) ** 2 + ((y - cy) / clearRy) ** 2);
+    const t = clamp((ed - 0.85) / 0.35, 0, 1);
+    return t * t * (3 - 2 * t);
+  };
+
   const pts = [];
   for (let i = 0; i < count; i++) {
-    pts.push({ x: rng() * W, y: rng() * H, r: 2 + rng() * 4 });
+    const x = rng() * W, y = rng() * H;
+    const focal = rng() < 0.16;
+    pts.push({
+      x, y, focal,
+      r: focal ? 2.1 + rng() * 1.1 : 0.7 + rng() * 1.5,
+      v: visibility(x, y),
+    });
   }
-  ctx.lineWidth = 1.4;
+
+  const linkRange = 240;
+  ctx.lineWidth = 1;
+  ctx.lineCap = 'round';
+  const drawn = new Set();
   for (let i = 0; i < pts.length; i++) {
-    for (let j = i + 1; j < pts.length; j++) {
-      const dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < 220) {
-        const alpha = Math.round((1 - dist / 220) * 55);
-        ctx.strokeStyle = accent + alpha.toString(16).padStart(2, '0');
-        ctx.beginPath();
-        ctx.moveTo(pts[i].x, pts[i].y);
-        ctx.lineTo(pts[j].x, pts[j].y);
-        ctx.stroke();
-      }
+    const neighbors = [];
+    for (let j = 0; j < pts.length; j++) {
+      if (j === i) continue;
+      const dist = Math.hypot(pts[i].x - pts[j].x, pts[i].y - pts[j].y);
+      if (dist < linkRange) neighbors.push({ j, dist });
+    }
+    neighbors.sort((a, b) => a.dist - b.dist);
+    for (const { j, dist } of neighbors.slice(0, 2)) {
+      const key = i < j ? i * count + j : j * count + i;
+      if (drawn.has(key)) continue;
+      drawn.add(key);
+      const v = Math.min(pts[i].v, pts[j].v);
+      const alpha = (1 - dist / linkRange) * 40 * v;
+      if (alpha < 3) continue;
+      ctx.strokeStyle = accent + toHex2(alpha);
+      ctx.beginPath();
+      ctx.moveTo(pts[i].x, pts[i].y);
+      ctx.lineTo(pts[j].x, pts[j].y);
+      ctx.stroke();
     }
   }
+
+  const starTint = mixHex(accent, '#ffffff', 0.55);
+  const focalCore = mixHex(accent, '#ffffff', 0.3);
   for (const p of pts) {
-    const grd = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 3);
-    grd.addColorStop(0, accent + '55');
-    grd.addColorStop(1, accent + '00');
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.r * 3, 0, Math.PI * 2);
-    ctx.fillStyle = grd;
-    ctx.fill();
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-    ctx.fillStyle = accent + '90';
-    ctx.fill();
+    if (p.v <= 0.02) continue;
+    if (p.focal) {
+      const halo = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 3);
+      halo.addColorStop(0, accent + toHex2(56 * p.v));
+      halo.addColorStop(1, accent + '00');
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r * 3, 0, Math.PI * 2);
+      ctx.fillStyle = halo;
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = focalCore + toHex2(200 * p.v);
+      ctx.fill();
+    } else {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = starTint + toHex2(120 * p.v);
+      ctx.fill();
+    }
   }
 }
 
@@ -176,7 +224,7 @@ export function drawPattern(ctx, seedStr, accent, pattern, density) {
   const d = densityMap[density] || 1;
 
   switch (pattern) {
-    case 'constellation': drawConstellation(ctx, rng, accent, Math.round(80 * d)); break;
+    case 'constellation': drawConstellation(ctx, rng, accent, Math.round(104 * d)); break;
     case 'dots':          drawDotGrid(ctx, accent, Math.round(40 / d)); break;
     case 'circuits':      drawCircuits(ctx, rng, accent, Math.round(30 * d)); break;
     case 'waves':         drawWaves(ctx, rng, accent, Math.round(60 * d)); break;
@@ -282,7 +330,7 @@ function drawTextBlock(ctx, lines, anchorX, anchorY, fontSize, weight, align, le
   if (glowIntensity > 0) {
     ctx.save();
     ctx.shadowColor = glowColor || 'rgba(0,0,0,0.35)';
-    ctx.shadowBlur = 80 * clamp(glowIntensity, 0, 1);
+    ctx.shadowBlur = 60 * clamp(glowIntensity, 0, 1);
     ctx.fillStyle = color;
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i];
@@ -367,13 +415,13 @@ export function drawText(ctx, title, subtitle, accent, options = {}) {
     else drawGlassPanel(ctx, minX - 40, minY - 30, maxX - minX + 80, maxY - minY + 60, 22);
   }
 
-  drawTextBlock(ctx, titleLines, titleCfg.x, titleCfg.y, titleSize, titleWeight, titleCfg.align, letterSpacing, lineHeight, '#ffffff', accent + '80', glowIntensity);
-  drawTextBlock(ctx, subLines, subCfg.x, subCfg.y, subSize, subtitleWeight, subCfg.align, letterSpacing, lineHeight, 'rgba(255,255,255,.65)', accent + '55', glowIntensity * 0.7);
+  drawTextBlock(ctx, titleLines, titleCfg.x, titleCfg.y, titleSize, titleWeight, titleCfg.align, letterSpacing, lineHeight, '#ffffff', accent + '66', glowIntensity);
+  drawTextBlock(ctx, subLines, subCfg.x, subCfg.y, subSize, subtitleWeight, subCfg.align, letterSpacing, lineHeight, 'rgba(255,255,255,.72)', accent + '44', glowIntensity * 0.7);
 
   // Accent line
   if (layoutDef.showLine) {
     ctx.strokeStyle = accent;
-    ctx.lineWidth = 4;
+    ctx.lineWidth = 3;
     ctx.lineCap = 'round';
     ctx.beginPath();
     if (layoutDef.lineX !== undefined && layoutDef.lineW !== undefined) {
@@ -466,7 +514,7 @@ export function drawBranding(ctx, text = 'neorgon.com', position = 'bottom-right
     case 'top-left':      x = 32; y = 30; align = 'left'; break;
     case 'top-center':    x = W / 2; y = 30; align = 'center'; break;
   }
-  ctx.fillStyle = 'rgba(255,255,255,.3)';
+  ctx.fillStyle = 'rgba(255,255,255,.38)';
   ctx.font = `500 16px ${fontFamily}`;
   ctx.textAlign = align;
   ctx.textBaseline = pos.id.startsWith('top') ? 'top' : 'alphabetic';
