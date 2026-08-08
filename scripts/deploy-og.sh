@@ -47,6 +47,8 @@ DEPLOYS=(
   minimap:minimap-site
   affinity:affinity-site
   glassbox:glassbox-site
+  stash:stash-site
+  pieza:pieza-site
 )
 
 deploy() {

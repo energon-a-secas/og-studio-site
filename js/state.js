@@ -49,6 +49,8 @@ export const sites = [
   { id: 'minimap',             title: 'Minimap',             subtitle: 'The Minimap-Only ARPG',           accent: '#7dd3fc', domain: 'minimap.neorgon.com' },
   { id: 'affinity',            title: 'Affinity',            subtitle: 'Nen Types for Tech Careers',      accent: '#e11d48', domain: 'affinity.neorgon.com' },
   { id: 'glassbox',            title: 'Glass Box',           subtitle: 'Claude Under the Hood',           accent: '#cc785c', domain: 'glassbox.neorgon.com' },
+  { id: 'stash',               title: 'Stash',               subtitle: 'Design Assets Worth Using',       accent: '#c026d3', domain: 'stash.neorgon.com' },
+  { id: 'pieza',               title: 'Pieza',               subtitle: 'Print & Play Dice-and-Cards Game', accent: '#ea580c', domain: 'pieza.neorgon.com' },
 ];
 
 export const gradientPresets = [
