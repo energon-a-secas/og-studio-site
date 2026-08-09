@@ -4,6 +4,11 @@
 
 set -uo pipefail
 ASSETS="$(cd "$(dirname "$0")/.." && pwd)/assets"
+# ROOT is the *projects* dir, not the monorepo root — DEPLOYS entries below are bare
+# project names, and they are joined onto it directly. This looked wrong after the
+# restructure and is not: the script gained a directory level (og-studio-site moved
+# into projects/) exactly when it needed a projects/ prefix, so ../.. still lands in
+# the right place. Do not "fix" it to ../../.. without repathing every DEPLOYS entry.
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 
 # id:project-dir (id must match assets/og-{id}.jpg from state.js)
