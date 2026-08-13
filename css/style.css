@@ -20,8 +20,8 @@ body {
   --text-primary: #f9f9f9;
   --text-secondary: #cacaca;
   --text-muted: rgba(255,255,255,.55);
-  --accent: #0063e5;
-  --accent-bright: #0080ff;
+  --accent: #a3e635;
+  --accent-bright: #bef264;
   --font: 'Avenir Next', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   --text-xs: 0.75rem; --text-sm: 0.875rem; --text-base: 1rem;
   --text-lg: 1.125rem; --text-xl: 1.25rem; --text-2xl: 1.5rem;
@@ -281,22 +281,6 @@ input[type="range"] {
 .gradient-swatch.active { border-color: #fff; }
 
 /* ── Footer ───────────────────────────────────────────────────────── */
-.info-footer {
-  text-align: center; padding: 20px var(--space-6) 28px;
-  color: var(--text-muted); font-size: .78em; line-height: 1.8;
-  border-top: 1px solid var(--border-subtle);
-  margin-top: 48px;
-}
-.footer-link {
-  color: var(--text-muted);
-  text-decoration: none;
-  transition: color var(--dur);
-}
-.footer-link:hover,
-.footer-link:focus-visible {
-  color: var(--text-secondary);
-  text-decoration: underline;
-}
 
 /* ── Focus styles ─────────────────────────────────────────────────── */
 :focus-visible {
@@ -378,25 +362,6 @@ button:active, .btn:active {
   .grid { grid-template-columns: 1fr; }
   .nav-tab { padding: 6px 12px; font-size: var(--text-xs); }
   .pattern-grid { grid-template-columns: repeat(2, 1fr); }
-}
-.info-footer {
-  text-align: center;
-  padding: 24px 24px 28px;
-  color: rgba(255,255,255,.45);
-  font-size: .78em;
-  line-height: 1.8;
-  border-top: 1px solid rgba(255,255,255,.08);
-  margin-top: 32px;
-}
-.footer-link {
-  color: rgba(255,255,255,.45);
-  text-decoration: none;
-  transition: color 200ms;
-}
-.footer-link:hover,
-.footer-link:focus-visible {
-  color: rgba(255,255,255,.72);
-  text-decoration: underline;
 }
 
 /* ── v2 additions ─────────────────────────────────────────────────── */

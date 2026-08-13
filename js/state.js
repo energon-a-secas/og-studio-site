@@ -2,6 +2,7 @@ export const W = 1200;
 export const H = 630;
 
 export const sites = [
+  { id: 'rewind', title: 'Rewind', subtitle: 'Site design history, replayable', accent: '#9333ea', domain: 'rewind.neorgon.com' },
   { id: 'neorgon',          title: 'Neorgon',              subtitle: 'Developer Tools Hub',                accent: '#818cf8', domain: 'neorgon.com' },
   { id: 'skill-roadmap',    title: 'Skill Roadmap',        subtitle: 'Visual Learning Path Builder',       accent: '#a78bfa', domain: 'skillmap.neorgon.com' },
   { id: 'infra-drills',     title: 'Infra Drills',         subtitle: 'Break-Fix Challenges',               accent: '#fbbf24', domain: 'infradrills.neorgon.com' },
@@ -21,7 +22,7 @@ export const sites = [
   { id: 'snippets',          title: 'Snippets',             subtitle: 'Search, Copy, Ship',                 accent: '#10b981', domain: 'snippets.neorgon.com' },
   { id: 'guild-hall',        title: 'Guild Hall',           subtitle: 'Quest Board',                        accent: '#ef4444', domain: 'guildhall.neorgon.com' },
   { id: 'parla',             title: 'Parla',                subtitle: 'Latin American Slang Translator',    accent: '#f97316', domain: 'parla.neorgon.com' },
-  { id: 'anatomy',           title: 'Anatomy',              subtitle: 'UI Component Explorer',              accent: '#f97316', domain: 'anatomy.neorgon.com' },
+  { id: 'anatomy',           title: 'UI Anatomy',           subtitle: 'UI Component Explorer',              accent: '#f97316', domain: 'uianatomy.neorgon.com' },
   { id: 'agent-lore',          title: 'Agent Lore',              subtitle: 'Small Tutorials',                accent: '#67e8f9', domain: 'agentlore.neorgon.com' },
   { id: 'buy-hacks',           title: 'Buy Hacks',               subtitle: 'Shopping Tips',                  accent: '#f59e0b', domain: 'buyhacks.neorgon.com' },
   { id: 'team-play',           title: 'Team Play',             subtitle: 'Games & Activities for Teams',   accent: '#0d9488', domain: 'teamplay.neorgon.com' },
@@ -37,7 +38,8 @@ export const sites = [
   { id: 'questline',           title: 'Questline',             subtitle: 'Operating Model Game Console',   accent: '#2aa8ff', domain: 'questline.neorgon.com' },
   { id: 'fitprofile',          title: 'FitProfile',          subtitle: 'Measurements & Size Tracker',    accent: '#14b8a6', domain: 'fitprofile.neorgon.com' },
   { id: 'failsafe',            title: 'Failsafe',            subtitle: 'Emergency Protocol Builder',     accent: '#6ee7b7', domain: 'failsafe.neorgon.com' },
-  { id: 'briefcard',           title: 'BriefCard',           subtitle: 'Battle Card Builder',            accent: '#0063e5', domain: 'briefcard.neorgon.com' },
+  { id: 'briefcard',           title: 'BattleCard',          subtitle: 'Battle Card Builder',            accent: '#fb7185', domain: 'battlecard.neorgon.com' },
+  { id: 'proctor',           title: 'Proctor',              subtitle: 'JSON Exam Runner',               accent: '#0891b2', domain: 'proctor.neorgon.com' },
   { id: 'stackrank',           title: 'Stack Rank',          subtitle: 'Shared Priority Lists',          accent: '#f59e0b', domain: 'stackrank.neorgon.com' },
   { id: 'tubestack',           title: 'TubeStack',           subtitle: 'Engineering YouTube Discovery',  accent: '#67e8f9', domain: 'tubestack.neorgon.com' },
   { id: 'mettle',              title: 'Mettle',              subtitle: 'Reasoning Maturity Probe',       accent: '#f59e0b', domain: 'mettle.neorgon.com' },
