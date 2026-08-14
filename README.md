@@ -53,6 +53,29 @@ OG Studio generates branded 1200x630 social preview (Open Graph) images for all 
 - v1 archive accessible from the footer
 - Pre-generated PNGs available in `assets/`
 
+## Demo GIFs (hub hover previews)
+
+The same repo records animated demo GIFs of any site: headless Chromium scrolls
+through the page and the frames encode straight to GIF (`gifenc` + `pngjs`, no
+ffmpeg). Output is 646x300, the format `neorgon.com` plays when you hover a card.
+
+```bash
+npm install                          # one-time; Chromium is already cached
+
+make gif SITE=questline              # record one site -> assets/gif-questline.gif
+make gif SITE=questline DEPLOY=1     # also install it as the hub hover preview
+make gif SITE=questline DEPLOY=1 FORCE=1   # replace an existing preview
+make gifs                            # every live hub card missing a preview (light profile)
+```
+
+How it behaves:
+
+- **Lightweight by default in batch** -- `make gifs` uses `--light`: 41 frames at 10 fps and a 160-color palette, roughly a third smaller than the full profile
+- **Never clobbers** -- an existing preview gif is kept unless you pass `FORCE=1`; a stopped `make gifs` run resumes where it left off
+- **Self-registering** -- `DEPLOY=1` writes `../neorgon-site/assets/previews/<card>.gif` and adds the missing `PREVIEW_MAP` entry in `js/previews.js`
+- **Scriptable scenes** -- `node scripts/record-gif.mjs <site> --scenario steps.json` drives clicks, hovers, and typing for sites whose landing screen hides the good part (steps: `hold`, `scroll`, `click`, `hover`, `type`)
+- **Works on history too** -- `rewind-site/tools/capture.py gif <snapshot-id>` records an archived era through the same recorder, and Rewind's filmstrip plays it on hover
+
 ## Architecture
 
 ![Architecture](docs/architecture.svg)

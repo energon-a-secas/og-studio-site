@@ -17,3 +17,6 @@ package-lock.json
 # ── Secrets — never commit ────────────────────────────────────────────────────
 .env
 .env.*
+
+# record-gif.mjs intermediates — the deployed hub preview is the artifact
+assets/gif-*.gif

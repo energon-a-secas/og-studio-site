@@ -46,5 +46,11 @@ og: generate deploy
 # make gif SITE=https://... CARD=x      URL target, explicit card id
 .PHONY: gif
 gif:
-	@test -n "$(SITE)" || { echo "usage: make gif SITE=<card|og-id|domain|url> [DEPLOY=1] [FORCE=1] [CARD=id] [OUT=file]"; exit 1; }
-	@node scripts/record-gif.mjs "$(SITE)" $(if $(DEPLOY),--deploy) $(if $(FORCE),--force) $(if $(CARD),--card $(CARD)) $(if $(OUT),--out $(OUT))
+	@test -n "$(SITE)" || { echo "usage: make gif SITE=<card|og-id|domain|url> [DEPLOY=1] [FORCE=1] [CARD=id] [OUT=file] [LIGHT=1]"; exit 1; }
+	@node scripts/record-gif.mjs "$(SITE)" $(if $(DEPLOY),--deploy) $(if $(FORCE),--force) $(if $(CARD),--card $(CARD)) $(if $(OUT),--out $(OUT)) $(if $(LIGHT),--light)
+
+# Record every live hub card that has no preview gif yet (light profile).
+# Skip-existing: hand-made gifs are never touched, and a stopped run resumes.
+.PHONY: gifs
+gifs:
+	@node scripts/record-gif.mjs --all-missing --light

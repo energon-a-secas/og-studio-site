@@ -2,6 +2,7 @@ export const W = 1200;
 export const H = 630;
 
 export const sites = [
+  { id: 'sortie', title: 'Sortie', subtitle: 'Unlock the console, forge the frame', accent: '#06b6d4', domain: 'sortie.neorgon.com' },
   { id: 'rewind', title: 'Rewind', subtitle: 'Site design history, replayable', accent: '#9333ea', domain: 'rewind.neorgon.com' },
   { id: 'neorgon',          title: 'Neorgon',              subtitle: 'Developer Tools Hub',                accent: '#818cf8', domain: 'neorgon.com' },
   { id: 'skill-roadmap',    title: 'Skill Roadmap',        subtitle: 'Visual Learning Path Builder',       accent: '#a78bfa', domain: 'skillmap.neorgon.com' },
