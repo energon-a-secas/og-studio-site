@@ -2,6 +2,7 @@ export const W = 1200;
 export const H = 630;
 
 export const sites = [
+  { id: 'mosaic', title: 'Mosaic', subtitle: 'Change the layout, keep the photos', accent: '#f43f5e', domain: 'mosaic.neorgon.com' },
   { id: 'boardwright', title: 'Boardwright', subtitle: 'Board blueprints an AI can build from', accent: '#65a30d', domain: 'boardwright.neorgon.com' },
   { id: 'neokeys', title: 'NeoKeys', subtitle: 'Shortcuts you can list and remap', accent: '#84cc16', domain: 'neokeys.neorgon.com' },
   { id: 'overworld', title: 'Overworld', subtitle: 'Your Habitica day, and the history it deletes', accent: '#b45309', domain: 'overworld.neorgon.com' },
