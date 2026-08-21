@@ -2,6 +2,7 @@ export const W = 1200;
 export const H = 630;
 
 export const sites = [
+  { id: 'floorplan', title: 'Floorplan', subtitle: 'Team maps with rooms and shared spaces', accent: '#0369a1', domain: 'floorplan.neorgon.com' },
   { id: 'mosaic', title: 'Mosaic', subtitle: 'Change the layout, keep the photos', accent: '#f43f5e', domain: 'mosaic.neorgon.com' },
   { id: 'boardwright', title: 'Boardwright', subtitle: 'Board blueprints an AI can build from', accent: '#65a30d', domain: 'boardwright.neorgon.com' },
   { id: 'neokeys', title: 'NeoKeys', subtitle: 'Shortcuts you can list and remap', accent: '#84cc16', domain: 'neokeys.neorgon.com' },
