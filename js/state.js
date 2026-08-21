@@ -2,7 +2,7 @@ export const W = 1200;
 export const H = 630;
 
 export const sites = [
-  { id: 'paperdoll', title: 'Paperdoll', subtitle: 'Pixel characters for every Neorgon tool', accent: '#ec4899', domain: 'paperdoll.neorgon.com' },
+  { id: 'pixeldoll', title: 'Pixeldoll', subtitle: 'Pixel characters for every Neorgon tool', accent: '#ec4899', domain: 'pixeldoll.neorgon.com' },
   { id: 'floorplan', title: 'Floorplan', subtitle: 'Team maps with rooms and shared spaces', accent: '#0369a1', domain: 'floorplan.neorgon.com' },
   { id: 'mosaic', title: 'Mosaic', subtitle: 'Change the layout, keep the photos', accent: '#f43f5e', domain: 'mosaic.neorgon.com' },
   { id: 'boardwright', title: 'Boardwright', subtitle: 'Board blueprints an AI can build from', accent: '#65a30d', domain: 'boardwright.neorgon.com' },
