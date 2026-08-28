@@ -50,7 +50,17 @@ function serve() {
 async function main() {
   if (!existsSync(ASSETS)) mkdirSync(ASSETS, { recursive: true });
 
-  const ids = sites.map((s) => s.id);
+  // --only a,b,c regenerates just those ids (a new site's first image without
+  // re-rendering the fleet, where a stale CHANGE ME subtitle would ship).
+  const onlyArg = process.argv.find((a) => a.startsWith('--only'));
+  const only = onlyArg ? (onlyArg.split('=')[1] || process.argv[process.argv.indexOf(onlyArg) + 1] || '').split(',').filter(Boolean) : null;
+  const picked = only ? sites.filter((s) => only.includes(s.id)) : sites;
+  if (only && picked.length !== only.length) {
+    const known = new Set(sites.map((s) => s.id));
+    console.error(`unknown id(s): ${only.filter((id) => !known.has(id)).join(', ')}`);
+    process.exit(1);
+  }
+  const ids = picked.map((s) => s.id);
   const expected = ids.length;
 
   const srv = await serve();
@@ -74,12 +84,15 @@ async function main() {
 
   console.log(`Found ${ids.length} sites: ${ids.join(', ')}`);
 
+  // The gallery renders every site in state.js order; a filtered run must
+  // still address canvases by their position in that full list.
+  const fullIndex = new Map(sites.map((s, i) => [s.id, i]));
   for (let i = 0; i < ids.length; i++) {
     const dataUrl = await page.evaluate((idx) => {
       const grid = document.getElementById('gallery-grid');
       const canvas = grid.querySelectorAll('.card canvas')[idx];
       return canvas ? canvas.toDataURL('image/jpeg', 0.92) : null;
-    }, i);
+    }, fullIndex.get(ids[i]));
 
     if (!dataUrl) { console.log(`  Skipped index ${i} — no canvas`); continue; }
 
