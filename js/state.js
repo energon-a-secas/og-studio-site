@@ -6,7 +6,7 @@ export const sites = [
   { id: 'dispatch', title: 'Dispatch', subtitle: 'Fleet news, approved at the desk', accent: '#3b82f6', domain: 'dispatch.neorgon.com' },
   { id: 'gamme', title: 'Gamme', subtitle: 'Game patterns, and the drills that prove them', accent: '#a855f7', domain: 'gamme.neorgon.com' },
   { id: 'enjeu', title: 'Enjeu', subtitle: 'Bet your life cards. Keep enough to guard.', accent: '#eab308', domain: 'enjeu.neorgon.com' },
-  { id: 'scalpel', title: 'Scalpel', subtitle: 'CHANGE ME (~40 chars)', accent: '#5eead4', domain: 'scalpel.neorgon.com' },
+  { id: 'scalpel', title: 'Scalpel', subtitle: 'Dissect a skill before it ships', accent: '#5eead4', domain: 'scalpel.neorgon.com' },
   { id: 'pixeldoll', title: 'Pixeldoll', subtitle: 'Pixel characters for every Neorgon tool', accent: '#ec4899', domain: 'pixeldoll.neorgon.com' },
   { id: 'floorplan', title: 'Floorplan', subtitle: 'Team maps with rooms and shared spaces', accent: '#0369a1', domain: 'floorplan.neorgon.com' },
   { id: 'mosaic', title: 'Mosaic', subtitle: 'Change the layout, keep the photos', accent: '#f43f5e', domain: 'mosaic.neorgon.com' },
