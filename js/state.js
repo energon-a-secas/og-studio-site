@@ -51,6 +51,7 @@ export const sites = [
   { id: 'fitprofile',          title: 'FitProfile',          subtitle: 'Measurements & Size Tracker',    accent: '#14b8a6', domain: 'fitprofile.neorgon.com' },
   { id: 'failsafe',            title: 'Failsafe',            subtitle: 'Emergency Protocol Builder',     accent: '#6ee7b7', domain: 'failsafe.neorgon.com' },
   { id: 'briefcard',           title: 'BattleCard',          subtitle: 'Battle Card Builder',            accent: '#fb7185', domain: 'battlecard.neorgon.com' },
+  { id: 'cadrage',             title: 'Cadrage',             subtitle: 'Learn and Check Your Camera',    accent: '#0ea5e9', domain: 'cadrage.neorgon.com' },
   { id: 'proctor',           title: 'Proctor',              subtitle: 'JSON Exam Runner',               accent: '#0891b2', domain: 'proctor.neorgon.com' },
   { id: 'stackrank',           title: 'Stack Rank',          subtitle: 'Shared Priority Lists',          accent: '#f59e0b', domain: 'stackrank.neorgon.com' },
   { id: 'tubestack',           title: 'TubeStack',           subtitle: 'Engineering YouTube Discovery',  accent: '#67e8f9', domain: 'tubestack.neorgon.com' },
