@@ -94,7 +94,7 @@ async function main() {
       return canvas ? canvas.toDataURL('image/jpeg', 0.92) : null;
     }, fullIndex.get(ids[i]));
 
-    if (!dataUrl) { console.log(`  Skipped index ${i} — no canvas`); continue; }
+    if (!dataUrl) { console.log(`  Skipped index ${i}: no canvas`); continue; }
 
     const base64 = dataUrl.replace(/^data:image\/jpeg;base64,/, '');
     const buf = Buffer.from(base64, 'base64');
@@ -105,7 +105,7 @@ async function main() {
 
   await browser.close();
   srv.close();
-  console.log(`\nDone — ${ids.length} images saved to assets/`);
+  console.log(`\nDone: ${ids.length} images saved to assets/`);
 }
 
 main().catch(err => { console.error(err); process.exit(1); });

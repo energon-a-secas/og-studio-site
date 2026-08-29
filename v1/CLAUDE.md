@@ -20,8 +20,8 @@ No build step, no lint, no test suite.
 Modular ES module app. Entry point: `js/app.js`. All rendering is done via the Canvas API at 1200x630px.
 
 **Two modes, one page:**
-- **Gallery tab** — renders one canvas per site defined in `state.js:sites[]`, using a shared pattern + density setting. Supports individual and bulk PNG download.
-- **Custom tab** — freeform canvas with sidebar controls for title, subtitle, accent color, gradient preset, pattern, density, and branding text.
+- **Gallery tab**: renders one canvas per site defined in `state.js:sites[]`, using a shared pattern + density setting. Supports individual and bulk PNG download.
+- **Custom tab**: freeform canvas with sidebar controls for title, subtitle, accent color, gradient preset, pattern, density, and branding text.
 
 **Data flow:**
 1. `state.js` is the single source of truth: `sites[]` (all Neorgon tools with `id`, `title`, `subtitle`, `accent`, `domain`), `gradientPresets[]`, `patternList[]`, and the mutable `state` object (no localStorage persistence).
@@ -42,4 +42,4 @@ Modular ES module app. Entry point: `js/app.js`. All rendering is done via the C
 - Adding a new site: add an entry to `sites[]` in `js/state.js`, add `id:project-dir` to `DEPLOYS` in `scripts/deploy-og.sh`, then `make og`.
 - Accent colors are appended with a 2-digit hex alpha for canvas operations (e.g., `accent + '30'` = 19% opacity). Keep accent values as 6-digit hex.
 - The custom tab sidebar is rebuilt via `buildCustomCreator()` on init; it uses event delegation on the sidebar element rather than per-element listeners.
-- `downloadCanvas` uses `canvas.toBlob` + a temporary `<a>` click — this works only in browser context, not in the generate script (which reads raw pixel data instead).
+- `downloadCanvas` uses `canvas.toBlob` + a temporary `<a>` click: this works only in browser context, not in the generate script (which reads raw pixel data instead).

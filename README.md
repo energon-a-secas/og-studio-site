@@ -46,7 +46,7 @@ OG Studio generates branded 1200x630 social preview (Open Graph) images for all 
 - **Custom gradient builder** with editable stops and angle, plus solid-color background
 - **Enhanced typography**: text alignment, font weights, letter spacing, line height, glow
 - **Visual effects**: vignette strength, grain intensity, frosted glass panel
-- **Shareable URL state** — copy a link that restores the custom design
+- **Shareable URL state**: copy a link that restores the custom design
 - **Undo / redo** with keyboard shortcuts (Ctrl/Cmd+Z, Ctrl/Cmd+Shift+Z/Y)
 - **Remix** button to randomize style while keeping text and logo
 - Optional "Made with OG Studio" badge on exports

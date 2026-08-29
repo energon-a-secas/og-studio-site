@@ -261,7 +261,7 @@ function deployToHub(gifBuf, card, force) {
   const file = mapped || `${card}.gif`;
   const dest = path.join(PREVIEWS, file);
   if (fs.existsSync(dest) && !force) {
-    throw new Error(`${path.relative(HUB, dest)} already exists — pass --force to replace it`);
+    throw new Error(`${path.relative(HUB, dest)} already exists, pass --force to replace it`);
   }
   fs.mkdirSync(PREVIEWS, { recursive: true });
   fs.writeFileSync(dest, gifBuf);
@@ -294,7 +294,7 @@ async function recordOne(browser, a, { url, card, name }) {
   fs.writeFileSync(out, gifBuf);
   const kb = Math.round(gifBuf.length / 1024);
   console.log(`  wrote ${out} (${kb} KB)`);
-  if (kb > 1600) console.log('  ⚠ heavier than the heaviest existing preview — consider --light');
+  if (kb > 1600) console.log('  ⚠ heavier than the heaviest existing preview, consider --light');
   if (a.deploy) {
     if (!card) throw new Error('--deploy needs a hub card id; pass --card <id>');
     const { dest, patched } = deployToHub(gifBuf, card, a.force);

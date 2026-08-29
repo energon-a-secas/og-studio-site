@@ -3,7 +3,7 @@ export const H = 630;
 
 export const sites = [
   { id: 'releve', title: 'Releve', subtitle: 'What your Claude Code work would cost', accent: '#ca8a04', domain: 'releve.neorgon.com' },
-  { id: 'dispatch', title: 'Dispatch', subtitle: 'Fleet news, approved at the desk', accent: '#3b82f6', domain: 'dispatch.neorgon.com' },
+  { id: 'dispatch', title: 'Antenne', subtitle: 'Fleet news, approved at the desk', accent: '#3b82f6', domain: 'dispatch.neorgon.com' },
   { id: 'gamme', title: 'Gamme', subtitle: 'Game patterns, and the drills that prove them', accent: '#a855f7', domain: 'gamme.neorgon.com' },
   { id: 'enjeu', title: 'Enjeu', subtitle: 'Bet your life cards. Keep enough to guard.', accent: '#eab308', domain: 'enjeu.neorgon.com' },
   { id: 'scalpel', title: 'Scalpel', subtitle: 'Dissect a skill before it ships', accent: '#5eead4', domain: 'scalpel.neorgon.com' },
