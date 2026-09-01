@@ -2,6 +2,9 @@ export const W = 1200;
 export const H = 630;
 
 export const sites = [
+  { id: 'aficion', title: 'Aficion', subtitle: 'One map of hobbies, with yours lit up', accent: '#fbbf24', domain: 'aficion.neorgon.com' },
+  { id: 'throwaway-favicon-test', title: 'Throwaway', subtitle: 'CHANGE ME (~40 chars)', accent: '#a3e635', domain: 'throwaway.neorgon.com' },
+  { id: 'balise', title: 'Balise', subtitle: 'CHANGE ME (~40 chars)', accent: '#f59e0b', domain: 'balise.neorgon.com' },
   { id: 'echeance', title: 'Echeance', subtitle: 'Credential expiry board + renewal steps', accent: '#4f46e5', domain: 'echeance.neorgon.com' },
   { id: 'releve', title: 'Releve', subtitle: 'What your Claude Code work would cost', accent: '#ca8a04', domain: 'releve.neorgon.com' },
   { id: 'dispatch', title: 'Antenne', subtitle: 'Fleet news, approved at the desk', accent: '#3b82f6', domain: 'dispatch.neorgon.com' },
