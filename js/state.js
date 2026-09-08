@@ -2,6 +2,7 @@ export const W = 1200;
 export const H = 630;
 
 export const sites = [
+  { id: 'bouquin', title: 'Bouquin', subtitle: 'Books Reddit keeps suggesting', accent: '#be123c', domain: 'bouquin.neorgon.com' },
   { id: 'vitrina', title: 'Vitrina', subtitle: 'Spanish SF paperbacks, by their spines', accent: '#b45309', domain: 'vitrina.neorgon.com' },
   { id: 'quiz', title: 'Quiz', subtitle: 'Small games that teach', accent: '#fb923c', domain: 'quiz.neorgon.com' },
   { id: 'rappel', title: 'Rappel', subtitle: 'Spaced repetition, your ledger', accent: '#14b8a6', domain: 'rappel.neorgon.com' },
