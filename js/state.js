@@ -2,6 +2,7 @@ export const W = 1200;
 export const H = 630;
 
 export const sites = [
+  { id: 'callsign', title: 'Callsign', subtitle: 'Codenames in Armored Core part grammar', accent: '#ff6f59', domain: 'callsign.neorgon.com' },
   { id: 'enamel', title: 'Enamel', subtitle: 'Design and issue badges and certificates', accent: '#f97316', domain: 'enamel.neorgon.com' },
   { id: 'sash', title: 'Sash', subtitle: 'Badges and certificates, one shareable profile', accent: '#7c3aed', domain: 'sash.neorgon.com' },
   { id: 'bouquin', title: 'Bouquin', subtitle: 'Books Reddit keeps suggesting', accent: '#be123c', domain: 'bouquin.neorgon.com' },
