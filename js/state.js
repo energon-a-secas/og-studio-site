@@ -4,6 +4,7 @@ export const H = 630;
 export const sites = [
   { id: 'cachet', title: 'Cachet', subtitle: 'Sealed notes, kind words and feedback', accent: '#fdba74', domain: 'cachet.neorgon.com' },
   { id: 'callsign', title: 'Callsign', subtitle: 'Codenames in Armored Core part grammar', accent: '#ff6f59', domain: 'callsign.neorgon.com' },
+  { id: 'carnet', title: 'Carnet', subtitle: 'To-dos on your own Puter account, no signup', accent: '#22c55e', domain: 'carnet.neorgon.com' },
   { id: 'enamel', title: 'Enamel', subtitle: 'Design and issue badges and certificates', accent: '#f97316', domain: 'enamel.neorgon.com' },
   { id: 'sash', title: 'Sash', subtitle: 'Badges and certificates, one shareable profile', accent: '#7c3aed', domain: 'sash.neorgon.com' },
   { id: 'bouquin', title: 'Bouquin', subtitle: 'Books Reddit keeps suggesting', accent: '#be123c', domain: 'bouquin.neorgon.com' },
@@ -24,7 +25,7 @@ export const sites = [
   { id: 'mosaic', title: 'Mosaic', subtitle: 'Change the layout, keep the photos', accent: '#f43f5e', domain: 'mosaic.neorgon.com' },
   { id: 'boardwright', title: 'Boardwright', subtitle: 'Board blueprints an AI can build from', accent: '#65a30d', domain: 'boardwright.neorgon.com' },
   { id: 'neokeys', title: 'NeoKeys', subtitle: 'Shortcuts you can list and remap', accent: '#84cc16', domain: 'neokeys.neorgon.com' },
-  { id: 'overworld', title: 'Overworld', subtitle: 'Your Habitica day, and the history it deletes', accent: '#b45309', domain: 'overworld.neorgon.com' },
+  { id: 'overworld', title: 'Overworld', subtitle: 'Habitica tasks as zones, and the archive it deletes', accent: '#b45309', domain: 'overworld.neorgon.com' },
   { id: 'sortie', title: 'Sortie', subtitle: 'Seat the device, forge the frame', accent: '#06b6d4', domain: 'sortie.neorgon.com' },
   { id: 'rewind', title: 'Rewind', subtitle: 'Site design history, replayable', accent: '#9333ea', domain: 'rewind.neorgon.com' },
   { id: 'neorgon',          title: 'Neorgon',              subtitle: 'Developer Tools Hub',                accent: '#818cf8', domain: 'neorgon.com' },
