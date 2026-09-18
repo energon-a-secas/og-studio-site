@@ -12,6 +12,8 @@ help:
 	@echo "  make deploy     Copy assets/og-*.jpg to each project repo"
 	@echo "  make og         generate + deploy in one shot"
 	@echo "  make gif SITE=<card|domain|url>   Record a demo GIF (DEPLOY=1 → hub preview, FORCE=1 to replace)"
+	@echo "  make gifs       Record every live hub card that has no preview yet"
+	@echo "  make gifs-all   Re-record every live hub card (after a format change)"
 	@echo ""
 
 # ── Dev server ────────────────────────────────────────────────────────────────
@@ -54,3 +56,10 @@ gif:
 .PHONY: gifs
 gifs:
 	@node scripts/record-gif.mjs --all-missing --light
+
+# Re-record every live hub card, existing previews included. This is what a
+# change to the output format is applied with; `gifs` above cannot see a
+# wrong-sized preview, only a missing one.
+.PHONY: gifs-all
+gifs-all:
+	@node scripts/record-gif.mjs --all --light

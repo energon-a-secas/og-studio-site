@@ -45,7 +45,22 @@ Modular ES module app. Entry point: `js/app.js`. All rendering is done via the C
 
 **Deploy:** `make deploy` (or `make og` = generate + deploy) runs `scripts/deploy-og.sh`, copying each `assets/og-{id}.jpg` to `{project-dir}/og-preview.jpg`. Target folders are derived by joining `state.js` domains against `docs/site-registry.json`. There is no hand-kept deploy map.
 
-**Demo GIFs:** `make gif SITE=<card|og-id|domain|url> [DEPLOY=1] [FORCE=1]` runs `scripts/record-gif.mjs`: headless Chromium walks a scenario (default: hold, eased scroll down, scroll back to loop) and frames are encoded straight to GIF via `gifenc` + `pngjs`. No ffmpeg. Output is 646x300, the hub hover-preview format; `DEPLOY=1` installs to `../neorgon-site/assets/previews/<card>.gif` and adds the `PREVIEW_MAP` entry when missing. An existing gif file is never replaced without `FORCE=1` (filling a mapped-but-missing entry needs no force). Per-site interactions go in a `--scenario steps.json` (hold/scroll/click/hover/type). Rewind reuses this recorder: `rewind-site/tools/capture.py gif <snapshot-id>` animates an archived era and the filmstrip plays it on hover.
+**Demo GIFs:** `make gif SITE=<card|og-id|domain|url> [DEPLOY=1] [FORCE=1]` runs `scripts/record-gif.mjs`: headless Chromium walks a scenario (default: hold, eased scroll down, scroll back to loop) and frames are encoded straight to GIF via `gifenc` + `pngjs`. No ffmpeg. `DEPLOY=1` installs to `../neorgon-site/assets/previews/<card>.gif` and adds the `PREVIEW_MAP` entry when missing. An existing gif file is never replaced without `FORCE=1` (filling a mapped-but-missing entry needs no force). `make gifs` fills only the gaps; **`make gifs-all` re-records every live card**, which is what a format change is run with. Rewind reuses this recorder and passes `--size` explicitly: `rewind-site/tools/capture.py gif <snapshot-id>` animates an archived era and the filmstrip plays it on hover.
+
+Five things about that recorder are load-bearing, and all five have a comment at the code:
+
+- **Output is 646x462, and the size IS the hub's card box.** A card is 358px wide by 233..285 tall (aspect ~1.4) and `.card-preview img` is `object-fit: cover`. It shipped at 646x300 (aspect 2.153) until 2026-09-18, so every preview ever made was displayed 1.537x narrower than captured. Changing this number means re-recording the fleet and moving the hub's own SHAPE lint band, so it is not a knob. The recording viewport (1292x924) follows from it, which is why shrinking the output to save bytes collapses the recorded layouts.
+- **Identical consecutive frames are coalesced** into one frame with a longer delay, because gifenc writes every frame in full. A held second was costing a full image per frame. This is where the weight actually was: `aficion` does not scroll, so all 41 of its frames were identical and its preview was one still image sent 41 times at 1925 KB. It is 73 KB now, pixel for pixel the same.
+- **A weight budget**, `--max-kb` (default 1200), steps the palette down and re-encodes (free, the frames are in hand), keeps the smallest attempt, and **reports rather than degrades** past a 32-colour floor. `memes` is the one card over it (1296 KB) because it is a wall of animated GIFs whose frames never repeat.
+- **`hubCards()` is anchored on the card element and has no character cap.** It decides
+  which cards exist at all, so anything it cannot see never gets a preview and nothing
+  says so: the hub's own `preview-lint.py` reports the card as an ordinary GAP. A 900-char
+  window used to sit between the id and the `card-domain` line and silently dropped
+  `autopilot` (1141) and `ehq` (1295), which meant the two locked ghost cards were excluded
+  by accident of a character budget instead of by intent. Ghosts are now filtered by name
+  alongside Soon cards, and a count check throws when the map comes up short of the
+  `data-card-id` occurrences in the file.
+- **`scenarios/<card-id>.json`** overrides the clip for one card and is honoured by the batch, so hand-tuning survives `make gifs-all`. See `scenarios/README.md` for the two cards that need one and why. A run that prints `every frame was identical` is telling you the page never moved and wants click or hover steps instead.
 
 ## Key conventions
 

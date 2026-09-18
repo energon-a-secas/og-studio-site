@@ -1,0 +1,9 @@
+[
+  { "hold": 12 },
+  { "click": { "sel": "[data-ui=\"books\"]", "frames": 7 } },
+  { "hold": 8 },
+  { "click": { "sel": "[data-ui=\"settings\"]", "frames": 7 } },
+  { "hold": 8 },
+  { "click": { "sel": "[data-ui=\"today\"]", "frames": 7 } },
+  { "hold": 8 }
+]

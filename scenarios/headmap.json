@@ -1,0 +1,9 @@
+[
+  { "hold": 12 },
+  { "click": { "sel": "#btn-xray", "frames": 7 } },
+  { "hold": 7 },
+  { "click": { "sel": "#tab-impact", "frames": 7 } },
+  { "hold": 7 },
+  { "click": { "sel": "#tab-conditions", "frames": 7 } },
+  { "hold": 8 }
+]

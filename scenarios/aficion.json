@@ -1,0 +1,8 @@
+[
+  { "hold": 8 },
+  { "click": { "sel": "#zoomIn", "frames": 5 } },
+  { "click": { "sel": "#zoomIn", "frames": 5 } },
+  { "hold": 5 },
+  { "click": { "sel": "#btnBuilds", "frames": 8 } },
+  { "hold": 8 }
+]

@@ -1,0 +1,9 @@
+[
+  { "hold": 10 },
+  { "click": { "sel": ":nth-match(button:has-text(\"Start\"), 1)", "frames": 8 } },
+  { "hold": 8 },
+  { "click": { "sel": ":nth-match(.proctor-mode-card, 1)", "frames": 8 } },
+  { "hold": 12 },
+  { "click": { "sel": "#nextBtn", "frames": 7 } },
+  { "hold": 8 }
+]
