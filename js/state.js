@@ -2,6 +2,7 @@ export const W = 1200;
 export const H = 630;
 
 export const sites = [
+  { id: 'mug', title: 'Mug', subtitle: 'Character mugs, catalogued and collected', accent: '#2563eb', domain: 'mug.neorgon.com' },
   { id: 'reparto', title: 'Reparto', subtitle: 'Split a quarter\'s points, see who is missing', accent: '#14b8a6', domain: 'reparto.neorgon.com' },
   { id: 'cachet', title: 'Cachet', subtitle: 'Sealed notes, kind words and feedback', accent: '#fdba74', domain: 'cachet.neorgon.com' },
   { id: 'callsign', title: 'Callsign', subtitle: 'Codenames in Armored Core part grammar', accent: '#ff6f59', domain: 'callsign.neorgon.com' },
