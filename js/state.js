@@ -18,7 +18,7 @@ export const sites = [
   { id: 'balise', title: 'Balise', subtitle: 'CHANGE ME (~40 chars)', accent: '#f59e0b', domain: 'balise.neorgon.com' },
   { id: 'echeance', title: 'Echeance', subtitle: 'Credential expiry board + renewal steps', accent: '#4f46e5', domain: 'echeance.neorgon.com' },
   { id: 'releve', title: 'Releve', subtitle: 'What your Claude Code work would cost', accent: '#ca8a04', domain: 'releve.neorgon.com' },
-  { id: 'dispatch', title: 'Antenne', subtitle: 'Fleet news, approved at the desk', accent: '#3b82f6', domain: 'dispatch.neorgon.com' },
+  { id: 'antenne', title: 'Antenne', subtitle: 'Fleet news, approved at the desk', accent: '#3b82f6', domain: 'antenne.neorgon.com' },
   { id: 'gamme', title: 'Gamme', subtitle: 'Game patterns, and the drills that prove them', accent: '#a855f7', domain: 'gamme.neorgon.com' },
   { id: 'enjeu', title: 'Enjeu', subtitle: 'Bet your life cards. Keep enough to guard.', accent: '#eab308', domain: 'enjeu.neorgon.com' },
   { id: 'scalpel', title: 'Scalpel', subtitle: 'Dissect a skill before it ships', accent: '#5eead4', domain: 'scalpel.neorgon.com' },
