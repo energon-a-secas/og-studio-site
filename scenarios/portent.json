@@ -1,0 +1,6 @@
+[
+  { "hold": 5 },
+  { "click": { "sel": "#shakeBtn", "frames": 34 } },
+  { "click": { "sel": "#flipBtn", "frames": 14 } },
+  { "hold": 10 }
+]

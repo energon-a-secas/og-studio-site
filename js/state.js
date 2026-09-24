@@ -2,8 +2,12 @@ export const W = 1200;
 export const H = 630;
 
 export const sites = [
-  { id: 'mug', title: 'Mug', subtitle: 'Character mugs, catalogued and collected', accent: '#2563eb', domain: 'mug.neorgon.com' },
+  { id: 'headroom', title: 'Headroom', subtitle: 'Load-test a local AI box before you buy', accent: '#22d3ee', domain: 'headroom.neorgon.com' },
   { id: 'reparto', title: 'Reparto', subtitle: 'Split a quarter\'s points, see who is missing', accent: '#14b8a6', domain: 'reparto.neorgon.com' },
+  { id: 'mug', title: 'Mug', subtitle: 'Character mugs, catalogued and collected', accent: '#2563eb', domain: 'mug.neorgon.com' },
+  { id: 'badnik-lab', title: 'Badnik Lab', subtitle: 'CHANGE ME (~40 chars)', accent: '#a1a1aa', domain: 'badniklab.neorgon.com' },
+  { id: 'chasqui', title: 'Chasqui', subtitle: 'WhatsApp relay through AiSensy, live thread', accent: '#22c55e', domain: 'chasqui.neorgon.com' },
+  { id: 'portent', title: 'Portent', subtitle: 'A magic 8 ball you have to shake', accent: '#8b5cf6', domain: 'portent.neorgon.com' },
   { id: 'cachet', title: 'Cachet', subtitle: 'Sealed notes, kind words and feedback', accent: '#fdba74', domain: 'cachet.neorgon.com' },
   { id: 'callsign', title: 'Callsign', subtitle: 'Codenames in Armored Core part grammar', accent: '#ff6f59', domain: 'callsign.neorgon.com' },
   { id: 'carnet', title: 'Carnet', subtitle: 'To-dos on your own Puter account, no signup', accent: '#22c55e', domain: 'carnet.neorgon.com' },
