@@ -2,6 +2,7 @@ export const W = 1200;
 export const H = 630;
 
 export const sites = [
+  {"id": "bijou", "title": "Bijou", "subtitle": "Dress-up doll and desktop companion", "accent": "#f0abfc", "domain": "bijou.neorgon.com"},
   { id: 'rama', title: 'Rama', subtitle: 'Your org chart, starting with you', accent: '#34d399', domain: 'rama.neorgon.com' },
   { id: 'yomu', title: 'Yomu', subtitle: 'Paste Japanese, see how every word reads', accent: '#4338ca', domain: 'yomu.neorgon.com' },
   { id: 'headroom', title: 'Headroom', subtitle: 'Load-test a local AI box before you buy', accent: '#22d3ee', domain: 'headroom.neorgon.com' },
