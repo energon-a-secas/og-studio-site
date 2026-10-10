@@ -2,6 +2,7 @@ export const W = 1200;
 export const H = 630;
 
 export const sites = [
+  { id: 'playtrace', title: 'Playtrace', subtitle: 'Discover games. Follow what happens next.', accent: '#f9b73f', domain: 'playtrace.neorgon.com' },
   { id: 'dossier', title: 'Dossier', subtitle: 'Work reports, rendered from one file', accent: '#a5b4fc', domain: 'dossier.neorgon.com' },
   { id: 'botbench', title: 'Botbench', subtitle: 'Plan, simulate and program LEGO robots', accent: '#6ee7b7', domain: 'botbench.neorgon.com' },
   {"id": "bijou", "title": "Bijou", "subtitle": "Dress-up doll and desktop companion", "accent": "#f0abfc", "domain": "bijou.neorgon.com"},
