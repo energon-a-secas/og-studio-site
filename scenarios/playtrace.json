@@ -1,0 +1,6 @@
+[
+  { "hold": 8 },
+  { "scroll": { "to": 740, "frames": 18 } },
+  { "hold": 6 },
+  { "scroll": { "to": 0, "frames": 9 } }
+]
