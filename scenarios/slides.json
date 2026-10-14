@@ -1,0 +1,8 @@
+[
+  { "hold": 5 },
+  { "click": { "sel": ":nth-match(button.welcome-choice, 1)", "frames": 9 } },
+  { "click": { "sel": ":nth-match(article.cat-deck h4, 1)", "frames": 9 } },
+  { "click": { "sel": "#next-btn", "frames": 8 } },
+  { "click": { "sel": "#next-btn", "frames": 8 } },
+  { "click": { "sel": "#next-btn", "frames": 7 } }
+]

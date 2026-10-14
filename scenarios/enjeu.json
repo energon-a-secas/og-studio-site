@@ -1,0 +1,6 @@
+[
+  { "hold": 8 },
+  { "click": { "sel": "button.btn:has-text(\"Next\")", "frames": 11 } },
+  { "click": { "sel": "button.btn:has-text(\"Next\")", "frames": 11 } },
+  { "click": { "sel": "button.btn:has-text(\"Next\")", "frames": 11 } }
+]

@@ -1,0 +1,6 @@
+[
+  { "hold": 6 },
+  { "type": { "sel": "#targetUrl", "text": "https://neorgon.com", "frames": 10 } },
+  { "click": { "sel": "summary:has-text(\"Custom fuzz\")", "frames": 14 } },
+  { "hold": 6 }
+]

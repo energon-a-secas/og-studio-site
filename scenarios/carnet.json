@@ -1,0 +1,8 @@
+[
+  { "hold": 6 },
+  { "type": { "sel": "#taskInput", "text": "Water the plants", "frames": 10 } },
+  { "click": { "sel": "#addBtn", "frames": 6 } },
+  { "type": { "sel": "#taskInput", "text": "Call the bank", "frames": 9 } },
+  { "click": { "sel": "#addBtn", "frames": 6 } },
+  { "click": { "sel": ":nth-match(button.filter-btn, 2)", "frames": 8 } }
+]

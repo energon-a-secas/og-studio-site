@@ -1,0 +1,7 @@
+[
+  { "hold": 5 },
+  { "click": { "sel": "button.text-button:has-text(\"sample\")", "frames": 12 } },
+  { "click": { "sel": ":nth-match(button.template-button, 2)", "frames": 10 } },
+  { "click": { "sel": ":nth-match(button.template-button, 5)", "frames": 10 } },
+  { "hold": 4 }
+]

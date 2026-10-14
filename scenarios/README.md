@@ -55,3 +55,14 @@ success. That is exactly how `proctor` shipped its first two attempts.
 
 Shape: `[{"hold":n}, {"scroll":{"to":"45%","frames":n}}, {"click":{"sel":"..."}},
 {"hover":{"sel":"..."}}, {"type":{"sel":"...","text":"..."}}]`
+
+**The fourteen stills of 2026-10-14** (queue #93) each got a file after a
+probe of the page's visible controls: a click on a filter, a tab, a sample
+or an example where the page has one (carnet adds two tasks, mosaic loads
+its sample photos, pathfinder its sample map, loadout its sample team,
+slides opens a deck from its catalog, vitrina walks to its demo shelf).
+Two needed a second look at the frames, not just the log: slides' Next
+button sat under the catalog its first click opened, and lockdown's scan
+ended on a server error, so its clip types a URL and opens the fuzz paths
+instead of scanning. Look at a middle and a last frame of every new clip;
+the log says only whether each step found its element.

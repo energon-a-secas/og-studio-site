@@ -1,0 +1,9 @@
+[
+  { "hold": 8 },
+  { "click": { "sel": "#btn-hour-up", "frames": 5 } },
+  { "click": { "sel": "#btn-hour-up", "frames": 5 } },
+  { "click": { "sel": "#btn-hour-up", "frames": 5 } },
+  { "click": { "sel": "#btn-24h", "frames": 8 } },
+  { "click": { "sel": "#btn-hour-down", "frames": 5 } },
+  { "hold": 6 }
+]

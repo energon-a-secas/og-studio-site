@@ -1,0 +1,8 @@
+[
+  { "hold": 6 },
+  { "click": { "sel": ":nth-match(button.add-type-chip, 3)", "frames": 7 } },
+  { "click": { "sel": ":nth-match(button.add-type-chip, 4)", "frames": 7 } },
+  { "click": { "sel": ":nth-match(button.add-type-chip, 5)", "frames": 7 } },
+  { "click": { "sel": ":nth-match(button.add-type-chip, 2)", "frames": 7 } },
+  { "hold": 7 }
+]

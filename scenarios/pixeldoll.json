@@ -1,0 +1,8 @@
+[
+  { "hold": 6 },
+  { "click": { "sel": "button.tile:has-text(\"Cat\")", "frames": 8 } },
+  { "click": { "sel": "button.tile:has-text(\"Dog\")", "frames": 8 } },
+  { "click": { "sel": "button.tile:has-text(\"Robot\")", "frames": 8 } },
+  { "click": { "sel": "button.tile:has-text(\"Person\")", "frames": 8 } },
+  { "hold": 3 }
+]

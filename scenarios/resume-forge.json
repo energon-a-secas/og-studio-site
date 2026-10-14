@@ -1,0 +1,6 @@
+[
+  { "hold": 8 },
+  { "click": { "sel": "button.editor-tab:has-text(\"DESIGN\")", "frames": 12 } },
+  { "click": { "sel": "button.editor-tab:has-text(\"YAML\")", "frames": 12 } },
+  { "hold": 9 }
+]

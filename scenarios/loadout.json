@@ -1,0 +1,7 @@
+[
+  { "hold": 6 },
+  { "click": { "sel": "button:has-text(\"Sample team\")", "frames": 16 } },
+  { "click": { "sel": "#thresholdRange", "frames": 4 } },
+  { "click": { "sel": ":nth-match(button.week-tab, 1)", "frames": 4 } },
+  { "hold": 14 }
+]

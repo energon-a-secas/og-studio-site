@@ -1,0 +1,6 @@
+[
+  { "hold": 6 },
+  { "click": { "sel": "#startSampleBtn", "frames": 16 } },
+  { "click": { "sel": "#tab-prompt", "frames": 12 } },
+  { "hold": 7 }
+]
