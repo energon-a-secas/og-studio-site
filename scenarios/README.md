@@ -39,6 +39,10 @@ budget (1296 KB against 1200) and it is accepted rather than fixed, because the
 levers left all cost the thing the preview exists to show. Two attempts made it
 worse: a shorter 28% travel came in at 1392 KB.
 
+`bouquin` is a wall of photographed book covers, so the generic scroll made
+every frame distinct (1363 KB at 32 colours, over budget). Its scenario holds
+longer and travels 22%: 1179 KB at 78 colours, 19 of 41 frames distinct.
+
 Note what no longer needs a file: holding still is not a tuning trick any more,
 because `encode()` coalesces identical consecutive frames into one longer delay.
 A held second is free everywhere now.
