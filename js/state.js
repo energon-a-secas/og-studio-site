@@ -7,7 +7,7 @@ export const sites = [
   { id: 'botbench', title: 'Botbench', subtitle: 'Plan, simulate and program LEGO robots', accent: '#6ee7b7', domain: 'botbench.neorgon.com' },
   {"id": "bijou", "title": "Bijou", "subtitle": "Dress-up doll and desktop companion", "accent": "#f0abfc", "domain": "bijou.neorgon.com"},
   { id: 'rama', title: 'Rama', subtitle: 'Your org chart, starting with you', accent: '#34d399', domain: 'rama.neorgon.com' },
-  { id: 'yomu', title: 'Yomu', subtitle: 'Paste Japanese, see how every word reads', accent: '#4338ca', domain: 'yomu.neorgon.com' },
+  { id: 'yomu', title: 'Yomu', subtitle: 'Read Japanese, look words up, watch kanji drawn', accent: '#4338ca', domain: 'yomu.neorgon.com' },
   { id: 'headroom', title: 'Headroom', subtitle: 'Load-test a local AI box before you buy', accent: '#22d3ee', domain: 'headroom.neorgon.com' },
   { id: 'reparto', title: 'Reparto', subtitle: 'Split a quarter\'s points, see who is missing', accent: '#14b8a6', domain: 'reparto.neorgon.com' },
   { id: 'mug', title: 'Mug', subtitle: 'Character mugs, catalogued and collected', accent: '#2563eb', domain: 'mug.neorgon.com' },
