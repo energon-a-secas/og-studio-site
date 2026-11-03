@@ -59,6 +59,9 @@
 //   --scenario <file>  JSON steps: [{"hold":8},{"scroll":{"to":"60%","frames":26}},
 //                      {"click":{"sel":"..."}}, {"hover":{"sel":"..."}},
 //                      {"type":{"sel":"...","text":"..."}}]
+//   --allow-no-gl      record a page that asked for WebGL or WebGPU and got
+//                      none. Without it that page fails and nothing is written,
+//                      because its clip is the fallback, not the demo
 //
 // A preview that exists in PREVIEW_MAP but not on disk (the map had 14 of
 // those when this tool landed) deploys without --force: filling a hole is
@@ -70,6 +73,7 @@ import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 import gifenc from 'gifenc';
 import pngjs from 'pngjs';
+import { LAUNCH, addGlProbe, readGlProbe, glVerdict } from './gl-probe.mjs';
 
 const { GIFEncoder, quantize, applyPalette } = gifenc;
 const { PNG } = pngjs;
@@ -80,17 +84,13 @@ const HUB = path.resolve(OG_ROOT, '..', 'neorgon-site');
 const PREVIEWS = path.join(HUB, 'assets', 'previews');
 const PREVIEWS_JS = path.join(HUB, 'js', 'previews.js');
 
-// Headless Chromium has no GPU, and without this flag it has no WebGL at all:
-// `canvas.getContext('webgl')` fails outright. A site that draws in 3D therefore
-// recorded its own no-WebGL fallback, and every such fallback says so on the page,
-// so the hub shipped a preview reading "This browser can't show the 3D head" for
-// headmap and would have shipped "this browser gave no 3D canvas" for portent.
-// Nothing reported it: the frames differ, the weight is normal, and the recorder
-// cannot know that the page it captured is apologising. SwiftShader is a software
-// rasteriser, so it is slow rather than unavailable, which is fine for a clip
-// recorded frame by frame. "unsafe" in the flag name is Chrome warning that
-// software GL is not sandboxed to a GPU process, not that the output is wrong.
-const LAUNCH = { args: ['--enable-unsafe-swiftshader'] };
+// LAUNCH carries --enable-unsafe-swiftshader, without which headless Chromium has
+// no WebGL at all and every 3D site recorded its own fallback. It lives in
+// gl-probe.mjs with the probe that now catches the next page to do that: a page
+// that asked for a WebGL or WebGPU context and got none anywhere stops the
+// recording instead of shipping as a preview (see gl-probe.mjs for what it
+// cannot see). --allow-no-gl records it anyway, for when the fallback is the
+// point.
 
 const DEFAULT_SCENARIO = [
   { hold: 8 },
@@ -113,10 +113,11 @@ const LIGHT_SCENARIO = [
 function parseArgs(argv) {
   const a = { target: null, out: null, deploy: false, card: null, force: false,
     size: '646x462', fps: 10, scenario: null, light: false, colors: null,
-    allMissing: false, all: false, maxKB: 1200 };
+    allMissing: false, all: false, maxKB: 1200, allowNoGl: false };
   for (let i = 0; i < argv.length; i += 1) {
     const v = argv[i];
     if (v === '--deploy') a.deploy = true;
+    else if (v === '--allow-no-gl') a.allowNoGl = true;
     else if (v === '--force') a.force = true;
     else if (v === '--light') a.light = true;
     else if (v === '--all-missing') a.allMissing = true;
@@ -284,6 +285,8 @@ async function record(browser, { url, outW, outH, fps, steps }) {
     reducedMotion: 'no-preference',
   });
   try {
+    // Before the first navigation, so it is in place before any site script asks.
+    await addGlProbe(context);
     const page = await context.newPage();
     console.log(`  loading ${url}`);
     await page.goto(url, { waitUntil: 'networkidle', timeout: 45000 })
@@ -304,9 +307,38 @@ async function record(browser, { url, outW, outH, fps, steps }) {
       }
       frames.push(new Uint8Array(png.data));
     }
-    return frames;
+    // Read after the last frame, not after load: headroom imports its 3D view
+    // lazily on the first draw, so a 3D request can land mid-clip.
+    const gl = glVerdict(await readGlProbe(page));
+    return { frames, gl };
   } finally {
     await context.close();
+  }
+}
+
+/* The page asked for a GPU context and got none, so the clip is its fallback.
+   This throws before anything is encoded or written, which is what keeps it off
+   the hub: a batch counts the card as failed and moves on, a single run exits
+   non-zero, and rewind's capture.py already treats a non-zero exit as a failed
+   recording. A partial refusal is printed and never stops anything, see
+   glVerdict for why. */
+function checkGl(gl, allowNoGl) {
+  if (gl.status === 'fallback') {
+    console.log('  ⚠ the page asked for WebGL and got none: this clip is its fallback, not its demo');
+    for (const line of gl.lines) console.log(`    ${line}`);
+    if (!allowNoGl) {
+      throw new Error('no GPU context, so the page recorded its fallback; nothing was written '
+        + '(pass --allow-no-gl if the fallback is what you mean to record)');
+    }
+    console.log('    recording it anyway: --allow-no-gl');
+  } else if (gl.status === 'partial') {
+    console.log('  note: a GPU context was refused while another canvas got one. A capability check '
+      + 'does this; so does a second 3D view that is dead. Look at the clip:');
+    for (const line of gl.lines) console.log(`    ${line}`);
+  } else if (gl.status === 'ok') {
+    console.log('  3D: every canvas that asked for a GPU context got one');
+  } else if (gl.status === 'unknown') {
+    console.log(`  note: ${gl.lines[0]}, so a 3D fallback would not have been caught`);
   }
 }
 
@@ -458,7 +490,8 @@ async function recordOne(browser, a, { url, card, name }) {
   if (!outW || !outH) throw new Error(`bad --size: ${a.size}`);
   const { steps, from } = pickSteps(a, card);
   if (from.startsWith('scenarios/')) console.log(`  scenario: ${from}`);
-  const frames = await record(browser, { url, outW, outH, fps: a.fps, steps });
+  const { frames, gl } = await record(browser, { url, outW, outH, fps: a.fps, steps });
+  checkGl(gl, a.allowNoGl);
   const { buf: gifBuf, kb, colors, tried, written } = encodeWithin(
     frames, outW, outH, a.fps, a.colors, a.maxKB);
   const out = a.out || path.join(OG_ROOT, 'assets', `gif-${name}.gif`);

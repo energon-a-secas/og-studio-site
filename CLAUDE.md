@@ -13,7 +13,8 @@ npm install         # one-time: installs playwright devDependency
 node scripts/generate-og.mjs
 ```
 
-No build step, no lint, no test suite.
+No build step and no lint. `make test` runs the recorder tests in `tests/`
+(node:test plus Playwright in headless Chromium, under a minute, no network).
 
 ## Architecture
 
@@ -47,7 +48,7 @@ Modular ES module app. Entry point: `js/app.js`. All rendering is done via the C
 
 **Demo GIFs:** `make gif SITE=<card|og-id|domain|url> [DEPLOY=1] [FORCE=1]` runs `scripts/record-gif.mjs`: headless Chromium walks a scenario (default: hold, eased scroll down, scroll back to loop) and frames are encoded straight to GIF via `gifenc` + `pngjs`. No ffmpeg. `DEPLOY=1` installs to `../neorgon-site/assets/previews/<card>.gif` and adds the `PREVIEW_MAP` entry when missing. An existing gif file is never replaced without `FORCE=1` (filling a mapped-but-missing entry needs no force). `make gifs` fills only the gaps; **`make gifs-all` re-records every live card**, which is what a format change is run with. Rewind reuses this recorder and passes `--size` explicitly: `rewind-site/tools/capture.py gif <snapshot-id>` animates an archived era and the filmstrip plays it on hover.
 
-Five things about that recorder are load-bearing, and all five have a comment at the code:
+Six things about that recorder are load-bearing, and all six have a comment at the code:
 
 - **Output is 646x462, and the size IS the hub's card box.** A card is 358px wide by 233..285 tall (aspect ~1.4) and `.card-preview img` is `object-fit: cover`. It shipped at 646x300 (aspect 2.153) until 2026-09-18, so every preview ever made was displayed 1.537x narrower than captured. Changing this number means re-recording the fleet and moving the hub's own SHAPE lint band, so it is not a knob. The recording viewport (1292x924) follows from it, which is why shrinking the output to save bytes collapses the recorded layouts.
 - **Identical consecutive frames are coalesced** into one frame with a longer delay, because gifenc writes every frame in full. A held second was costing a full image per frame. This is where the weight actually was: `aficion` does not scroll, so all 41 of its frames were identical and its preview was one still image sent 41 times at 1925 KB. It is 73 KB now, pixel for pixel the same.
@@ -61,6 +62,7 @@ Five things about that recorder are load-bearing, and all five have a comment at
   alongside Soon cards, and a count check throws when the map comes up short of the
   `data-card-id` occurrences in the file.
 - **`scenarios/<card-id>.json`** overrides the clip for one card and is honoured by the batch, so hand-tuning survives `make gifs-all`. See `scenarios/README.md` for the two cards that need one and why. A run that prints `every frame was identical` is telling you the page never moved and wants click or hover steps instead.
+- **A 3D page that gets no GPU context fails the recording** (`scripts/gl-probe.mjs`). Headless Chromium has no WebGL without `--enable-unsafe-swiftshader` (`LAUNCH`, in the same module), and until 2026-09-18 the recorder launched without it, so headmap's hub preview was its own "This browser can't show the 3D head" page and nothing noticed: a fallback renders, so the frames move and the weight is normal. An init script now wraps `getContext` (WebGL and WebGPU types only) and `GPU.prototype.requestAdapter`, and a page that asked and got nothing anywhere throws before anything is encoded, so the batch lists it as failed and a single run exits 1. It catches the class without a selector per card. It cannot see a page that picks its fallback without asking (a `?nogl` switch, a missing `navigator.gpu`, which headless Chromium here does not expose at all), or a request made inside a Worker. A refused capability check beside a granted canvas prints a note and records. `--allow-no-gl` (`ALLOW_NO_GL=1`) records the fallback on purpose. The 3D cards today are headmap, portent, parla and headroom; bijou is a Soon card.
 
 ## Key conventions
 

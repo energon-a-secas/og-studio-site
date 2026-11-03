@@ -14,6 +14,7 @@ help:
 	@echo "  make gif SITE=<card|domain|url>   Record a demo GIF (DEPLOY=1 → hub preview, FORCE=1 to replace)"
 	@echo "  make gifs       Record every live hub card that has no preview yet"
 	@echo "  make gifs-all   Re-record every live hub card (after a format change)"
+	@echo "  make test       Recorder tests: the WebGL probe, in headless Chromium"
 	@echo ""
 
 # ── Dev server ────────────────────────────────────────────────────────────────
@@ -48,8 +49,8 @@ og: generate deploy
 # make gif SITE=https://... CARD=x      URL target, explicit card id
 .PHONY: gif
 gif:
-	@test -n "$(SITE)" || { echo "usage: make gif SITE=<card|og-id|domain|url> [DEPLOY=1] [FORCE=1] [CARD=id] [OUT=file] [LIGHT=1]"; exit 1; }
-	@node scripts/record-gif.mjs "$(SITE)" $(if $(DEPLOY),--deploy) $(if $(FORCE),--force) $(if $(CARD),--card $(CARD)) $(if $(OUT),--out $(OUT)) $(if $(LIGHT),--light)
+	@test -n "$(SITE)" || { echo "usage: make gif SITE=<card|og-id|domain|url> [DEPLOY=1] [FORCE=1] [CARD=id] [OUT=file] [LIGHT=1] [ALLOW_NO_GL=1]"; exit 1; }
+	@node scripts/record-gif.mjs "$(SITE)" $(if $(DEPLOY),--deploy) $(if $(FORCE),--force) $(if $(CARD),--card $(CARD)) $(if $(OUT),--out $(OUT)) $(if $(LIGHT),--light) $(if $(ALLOW_NO_GL),--allow-no-gl)
 
 # Record every live hub card that has no preview gif yet (light profile).
 # Skip-existing: hand-made gifs are never touched, and a stopped run resumes.
@@ -63,3 +64,10 @@ gifs:
 .PHONY: gifs-all
 gifs-all:
 	@node scripts/record-gif.mjs --all --light
+
+# ── Tests ─────────────────────────────────────────────────────────────────────
+# The recorder's WebGL probe, driven in the same headless Chromium the recorder
+# launches. Needs `npm install` (playwright), no network.
+.PHONY: test
+test:
+	@node --test tests/*.test.mjs

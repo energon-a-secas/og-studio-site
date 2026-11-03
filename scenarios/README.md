@@ -65,6 +65,15 @@ result that goes straight onto the globe with the other countries' terms pinned.
 the word rather than clicking an example pill: the pills are 8 of 12 picked at
 random and include `weón`, `boludo` and `naco`.
 
+**A 3D page needs no scenario to be caught falling back.** The recorder's GL
+probe (`scripts/gl-probe.mjs`) fails any run where the page asked for a WebGL or
+WebGPU context and got none, whatever the fallback looks like, so a scenario
+here is for what the clip shows, never for proving the 3D view rendered. parla
+is why that cannot be left to a selector: its no-WebGL fallback is a labelled
+radial diagram that reads as a deliberate design. What the probe cannot see is a
+page that chooses its fallback without asking; look at a middle frame of any 3D
+clip anyway.
+
 Shape: `[{"hold":n}, {"scroll":{"to":"45%","frames":n}}, {"click":{"sel":"..."}},
 {"hover":{"sel":"..."}}, {"type":{"sel":"...","text":"..."}}]`
 
