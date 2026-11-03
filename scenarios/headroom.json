@@ -1,0 +1,14 @@
+[
+  {"click": {"sel": ".welcome-start", "frames": 2}},
+  {"click": {"sel": "[data-camera=\"left\"]", "frames": 1}},
+  {"click": {"sel": "[data-camera=\"left\"]", "frames": 1}},
+  {"click": {"sel": "[data-camera=\"left\"]", "frames": 1}},
+  {"click": {"sel": "[data-camera=\"left\"]", "frames": 6}},
+  {"click": {"sel": "#scenarioBar [data-crowd=\"family\"]", "frames": 12}},
+  {"click": {"sel": "[data-camera=\"right\"]", "frames": 1}},
+  {"click": {"sel": "[data-camera=\"right\"]", "frames": 1}},
+  {"click": {"sel": "[data-camera=\"right\"]", "frames": 1}},
+  {"click": {"sel": "[data-camera=\"right\"]", "frames": 6}},
+  {"click": {"sel": "#scenarioBar [data-crowd=\"crew\"]", "frames": 12}},
+  {"click": {"sel": "#scenarioBar [data-crowd=\"kindle\"]", "frames": 10}}
+]

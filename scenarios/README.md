@@ -63,6 +63,15 @@ frames rather than the selector). Until 2026-11-03 all three read "matched
 nothing", and the third is what `headroom` prints on a loaded machine: each
 crowd chip re-runs twenty simulated minutes on the main thread.
 
+**`headroom`** opens on a first-visit welcome dialog (`headroom:welcome:v1` is
+never set in the recorder's fresh context) and its generic scroll would carry
+the 3D floor out of frame. The scenario closes the dialog with `.welcome-start`,
+turns the camera with `[data-camera]` one 0.25 rad click per frame, and walks
+three crowds (`family`, `crew`, back to `kindle`) so the floor redraws with
+different devices and the verdict changes beside it. It does not press Run: a
+running simulation under SwiftShader starved the page until a screenshot timed
+out at 30 s.
+
 **The page opens on a dialog it chose itself.** `parla` shows its Palabra del día
 modal on every fresh load (the recorder's context has no `parla-wod-dismissed`
 key), and the word is seeded by the date across all 198 concepts, 41 of them
