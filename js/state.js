@@ -8,7 +8,7 @@ export const sites = [
   { id: 'playtrace', title: 'Playtrace', subtitle: 'Discover games. Follow what happens next.', accent: '#f9b73f', domain: 'playtrace.neorgon.com' },
   { id: 'dossier', title: 'Dossier', subtitle: 'Work reports, rendered from one file', accent: '#a5b4fc', domain: 'dossier.neorgon.com' },
   { id: 'botbench', title: 'Botbench', subtitle: 'Plan, simulate and program LEGO robots', accent: '#6ee7b7', domain: 'botbench.neorgon.com' },
-  {"id": "bijou", "title": "Bijou", "subtitle": "Dress-up doll and desktop companion", "accent": "#f0abfc", "domain": "bijou.neorgon.com"},
+  { id: 'bijou', title: 'Bijou', subtitle: 'Dress-up doll and desktop companion', accent: '#f0abfc', domain: 'bijou.neorgon.com' },
   { id: 'rama', title: 'Rama', subtitle: 'Your org chart, starting with you', accent: '#34d399', domain: 'rama.neorgon.com' },
   { id: 'yomu', title: 'Yomu', subtitle: 'Read Japanese, look words up, watch kanji drawn', accent: '#4338ca', domain: 'yomu.neorgon.com' },
   { id: 'headroom', title: 'Headroom', subtitle: 'Load-test a local AI box before you buy', accent: '#22d3ee', domain: 'headroom.neorgon.com' },
