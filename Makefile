@@ -14,7 +14,7 @@ help:
 	@echo "  make gif SITE=<card|domain|url>   Record a demo GIF (DEPLOY=1 → hub preview, FORCE=1 to replace)"
 	@echo "  make gifs       Record every live hub card that has no preview yet"
 	@echo "  make gifs-all   Re-record every live hub card (after a format change)"
-	@echo "  make test       Recorder tests: the WebGL probe, in headless Chromium"
+	@echo "  make test       Recorder tests (WebGL probe, step warnings), headless Chromium"
 	@echo ""
 
 # ── Dev server ────────────────────────────────────────────────────────────────
@@ -66,8 +66,8 @@ gifs-all:
 	@node scripts/record-gif.mjs --all --light
 
 # ── Tests ─────────────────────────────────────────────────────────────────────
-# The recorder's WebGL probe, driven in the same headless Chromium the recorder
-# launches. Needs `npm install` (playwright), no network.
+# The recorder, driven in the same headless Chromium it launches: the WebGL
+# probe and the step warnings. Needs `npm install` (playwright), no network.
 .PHONY: test
 test:
 	@node --test tests/*.test.mjs

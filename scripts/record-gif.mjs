@@ -235,10 +235,28 @@ function parseScrollTo(to, max, from) {
  *  moment one step of four happens to work: the result is a preview that shows
  *  less than it claims, at full weight, with a clean log. Playwright's own message
  *  distinguishes the two cases worth knowing apart, a selector that matches
- *  nothing and one that matches several. */
+ *  nothing and one that matches several.
+ *
+ *  A timeout is three different things, and the call log under Playwright's
+ *  first line says which. Every timeout used to read "matched nothing", which
+ *  sent headroom's first scenario chasing selectors that were fine: its crowd
+ *  chips resolve and get clicked, and the click handler then re-runs twenty
+ *  simulated minutes on the main thread, which on a loaded machine outlasts the
+ *  3s. That click lands anyway (the event is already in the page's queue), so
+ *  it is a note about timing, not a missed step. */
 function warnStep(kind, sel, err) {
-  const first = String(err.message || err).split('\n')[0];
-  const why = /Timeout/.test(first) ? 'matched nothing within 3s' : first;
+  const msg = String(err.message || err);
+  const first = msg.split('\n')[0];
+  let why = first;
+  if (/Timeout/.test(first)) {
+    if (/performing \w+ action|element is visible, enabled and editable/.test(msg)) {
+      why = 'acted, but the page was still busy 3s later; it most likely landed, so check the frames';
+    } else if (/locator resolved to/.test(msg)) {
+      why = 'matched, but never became actionable within 3s (hidden, disabled, covered or still moving)';
+    } else {
+      why = 'matched nothing within 3s';
+    }
+  }
   console.log(`  ⚠ ${kind} ${sel}: ${why}`);
 }
 

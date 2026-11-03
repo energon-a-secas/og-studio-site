@@ -53,6 +53,16 @@ run continues. It used to swallow the error, which is worse than it sounds: the
 where one click of three lands recorded a partial demo at full weight and reported
 success. That is exactly how `proctor` shipped its first two attempts.
 
+A timeout now says which of three things it was, read from Playwright's call
+log: `matched nothing within 3s` (fix the selector), `matched, but never became
+actionable` (hidden, disabled, covered or still moving: an earlier step is
+missing, as with portent's `#flipBtn`, which only shows while the ball waits to
+be turned over), and `acted, but the page was still busy 3s later` (the click
+was dispatched and its handler is slow; it most likely landed, so check the
+frames rather than the selector). Until 2026-11-03 all three read "matched
+nothing", and the third is what `headroom` prints on a loaded machine: each
+crowd chip re-runs twenty simulated minutes on the main thread.
+
 **The page opens on a dialog it chose itself.** `parla` shows its Palabra del día
 modal on every fresh load (the recorder's context has no `parla-wod-dismissed`
 key), and the word is seeded by the date across all 198 concepts, 41 of them
