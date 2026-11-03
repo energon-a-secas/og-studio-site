@@ -53,6 +53,18 @@ run continues. It used to swallow the error, which is worse than it sounds: the
 where one click of three lands recorded a partial demo at full weight and reported
 success. That is exactly how `proctor` shipped its first two attempts.
 
+**The page opens on a dialog it chose itself.** `parla` shows its Palabra del día
+modal on every fresh load (the recorder's context has no `parla-wod-dismissed`
+key), and the word is seeded by the date across all 198 concepts, 41 of them
+insults. Its September clip was that modal for every frame: a blurred page behind a
+Portuguese insult. `preview-lint.py` passed it, because the globe kept moving
+under the blur. The scenario's first step is the click on `#wodSkip`, so the
+first captured frame is already past the dialog whatever the date picks, then it
+types two fixed clean words (`bacán`, then `cotufas`), each a single search
+result that goes straight onto the globe with the other countries' terms pinned. Type
+the word rather than clicking an example pill: the pills are 8 of 12 picked at
+random and include `weón`, `boludo` and `naco`.
+
 Shape: `[{"hold":n}, {"scroll":{"to":"45%","frames":n}}, {"click":{"sel":"..."}},
 {"hover":{"sel":"..."}}, {"type":{"sel":"...","text":"..."}}]`
 

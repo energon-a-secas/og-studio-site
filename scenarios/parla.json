@@ -1,0 +1,5 @@
+[
+  {"click": {"sel": "#wodSkip", "frames": 8}},
+  {"type": {"sel": "#searchInput", "text": "bacán", "frames": 30}},
+  {"type": {"sel": "#searchInput", "text": "cotufas", "frames": 30}}
+]
