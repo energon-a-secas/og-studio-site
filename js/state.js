@@ -2,6 +2,7 @@ export const W = 1200;
 export const H = 630;
 
 export const sites = [
+  { id: 'parley', title: 'Parley', subtitle: 'Chat UI patterns from real products', accent: '#f472b6', domain: 'parley.neorgon.com' },
   { id: 'hobbyorbit', title: 'Hobby Orbit', subtitle: 'A little room for what draws you', accent: '#fca5a5', domain: 'hobbyorbit.neorgon.com' },
   { id: 'playtrace', title: 'Playtrace', subtitle: 'Discover games. Follow what happens next.', accent: '#f9b73f', domain: 'playtrace.neorgon.com' },
   { id: 'dossier', title: 'Dossier', subtitle: 'Work reports, rendered from one file', accent: '#a5b4fc', domain: 'dossier.neorgon.com' },
